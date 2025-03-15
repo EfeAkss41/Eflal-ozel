@@ -18,9 +18,9 @@
             min-height: 100vh;
             color: #ff4d4d;
             text-align: center;
-            overflow: hidden;
             transition: background-color 1s ease;
             background-color: #ffd6e0;
+            overflow: hidden;
         }
 
         h1 {
@@ -30,7 +30,7 @@
             letter-spacing: 2px;
         }
 
-        .heart-btn {
+        .heart-btn, .control-btn {
             padding: 12px 25px;
             background-color: #ff4d4d;
             color: white;
@@ -41,9 +41,10 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             margin-top: 15px;
+            margin-right: 5px;
         }
 
-        .heart-btn:hover {
+        .heart-btn:hover, .control-btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
         }
@@ -77,14 +78,8 @@
         }
 
         @keyframes fall {
-            from {
-                transform: translateY(-100px);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
+            from { transform: translateY(-100px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
         }
 
         /* Özel Mesaj */
@@ -141,91 +136,104 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
-        /* Mobil Uyum */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2em;
-            }
-            .heart-btn {
-                font-size: 0.9em;
-                padding: 10px 20px;
-            }
-            #specialMessage {
-                font-size: 1em;
-            }
-            .photo-gallery img {
-                width: 100px;
-                height: 100px;
-            }
+        /* Şarkı Bilgisi */
+        #songInfo {
+            margin-top: 15px;
+            color: #ff4d4d;
+            font-size: 1.1em;
+        }
+
+        progress {
+            width: 70%;
+            height: 8px;
+            border-radius: 10px;
+            background-color: #ffe6ea;
+            overflow: hidden;
+            appearance: none;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #ffe6ea;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #ff4d4d;
+            border-radius: 10px;
+        }
+
+        #currentTime, #totalTime {
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
-    <h1>Eflal ❤️</h1>
+<h1>Eflal ❤️</h1>
 
-    <!-- Saat -->
-    <div id="clock"></div>
+<!-- Saat -->
+<div id="clock"></div>
 
-    <!-- Özel Mesaj Kutusu -->
-    <div id="specialMessage">
-        Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖. Bu hikâyenin başrolünü benimle paylaşır mısın? 🥰✨
-    </div>
+<!-- Özel Mesaj Kutusu -->
+<div id="specialMessage">
+    Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖. Bu hikâyenin başrolünü benimle paylaşır mısın? 🥰✨
+</div>
 
-    <!-- Fotoğraf Galerisi -->
-    <div id="photoGallery" class="photo-gallery" style="display:none;">
-        <img src="https://source.unsplash.com/150x150/?love" alt="Love 1">
-        <img src="https://source.unsplash.com/150x150/?heart" alt="Love 2">
-        <img src="https://source.unsplash.com/150x150/?flower" alt="Love 3">
-        <img src="https://source.unsplash.com/150x150/?couple" alt="Love 4">
-        <img src="https://source.unsplash.com/150x150/?romantic" alt="Love 5">
-    </div>
+<!-- Fotoğraf Galerisi -->
+<div id="photoGallery" class="photo-gallery" style="display:none;">
+    <img src="https://source.unsplash.com/150x150/?love" alt="Love 1">
+    <img src="https://source.unsplash.com/150x150/?heart" alt="Love 2">
+    <img src="https://source.unsplash.com/150x150/?flower" alt="Love 3">
+</div>
 
-    <!-- Kalp Butonu -->
-    <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
+<!-- Kalp Butonu -->
+<button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
-    <script>
-        // ❤️ Kalp Animasyonu
-        function showHeartMessage() {
-            for (let i = 0; i < 20; i++) {
-                let heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.top = `${Math.random() * 100}vh`;
-                document.body.appendChild(heart);
+<!-- Şarkı Kontrolü -->
+<audio id="bgMusic" src="audio/music.mp3" loop></audio>
+<button class="control-btn" onclick="playMusic()">▶️ Başlat</button>
+<button class="control-btn" onclick="pauseMusic()">⏸️ Durdur</button>
+<progress id="songProgress" value="0" max="100"></progress>
+<span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
 
-                setTimeout(() => heart.remove(), 1500);
-            }
+<script>
+    function showHeartMessage() {
+        document.getElementById('specialMessage').style.display = 'block';
+        document.getElementById('photoGallery').style.display = 'flex';
+        document.getElementById('photoGallery').style.opacity = '1';
+    }
 
-            // Özel Mesajı Göster
-            const specialMessage = document.getElementById('specialMessage');
-            specialMessage.style.display = 'block';
+    function playMusic() {
+        bgMusic.play();
+        requestAnimationFrame(updateProgress);
+    }
 
-            // Fotoğraf Galerisini Göster
-            const gallery = document.getElementById('photoGallery');
-            gallery.style.display = 'flex';
-            gallery.style.opacity = '1';
+    function pauseMusic() {
+        bgMusic.pause();
+    }
+
+    function updateProgress() {
+        songProgress.value = (bgMusic.currentTime / bgMusic.duration) * 100;
+        currentTime.innerText = formatTime(bgMusic.currentTime);
+        if (!bgMusic.paused) {
+            requestAnimationFrame(updateProgress);
         }
+    }
 
-        // ⭐ Düşen Yıldız Efekti
-        function createFallingStar() {
-            let star = document.createElement('div');
-            star.classList.add('star');
-            star.style.left = `${Math.random() * 100}vw`;
-            document.body.appendChild(star);
+    bgMusic.onloadedmetadata = () => {
+        totalTime.innerText = formatTime(bgMusic.duration);
+    };
 
-            setTimeout(() => star.remove(), 2000);
-        }
-        setInterval(createFallingStar, 1000);
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' + secs : secs}`;
+    }
 
-        // ⏰ Saat
-        function updateClock() {
-            const now = new Date();
-            const time = now.toLocaleTimeString();
-            document.getElementById('clock').innerText = time;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
+    setInterval(() => {
+        const now = new Date();
+        clock.innerText = now.toLocaleTimeString();
+    }, 1000);
+</script>
+
 </body>
 </html>
