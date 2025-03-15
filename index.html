@@ -177,7 +177,7 @@
 
 <!-- Özel Mesaj -->
 <div id="specialMessage">
-    Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖. Bu hikâyenin başrolünü benimle paylaşır mısın? 🥰✨
+    Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖.
 </div>
 
 <!-- Fotoğraf Galerisi -->
@@ -224,12 +224,6 @@
     bgMusic.onloadedmetadata = () => {
         totalTime.innerText = formatTime(bgMusic.duration);
     };
-
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${minutes}:${secs < 10 ? '0' + secs : secs}`;
-    }
 </script>
 
 </body>
