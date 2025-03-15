@@ -63,7 +63,30 @@
             transform: scale(1.2);
         }
 
-        /* Kalp Yağmuru Efekti */
+        /* Parlayan Yıldız Efekti */
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: fallStar 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes fallStar {
+            from {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Kalp Yağmuru */
         .heart {
             position: absolute;
             width: 20px;
@@ -71,52 +94,23 @@
             background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
             background-size: cover;
             opacity: 0.7;
-            animation: fall 4s linear infinite;
-            pointer-events: none;
+            animation: fallHeart 3s linear infinite;
+            z-index: -1;
         }
 
-        @keyframes fall {
-            from { transform: translateY(-100px); opacity: 1; }
-            to { transform: translateY(100vh); opacity: 0; }
+        @keyframes fallHeart {
+            from {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
         }
 
-        /* Şifre Kutusu */
-        .password-box {
-            display: none;
-            background-color: #ffe6ea;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 1000;
-        }
-
-        .password-box input, .password-box button {
-            padding: 10px;
-            font-size: 1em;
-            margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #ff4d4d;
-            outline: none;
-        }
-
-        .password-box button {
-            background-color: #ff4d4d;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .password-box button:hover {
-            background-color: #ff1a1a;
-        }
-
-        /* Özel Mesaj Typewriter Efekti */
-        #specialMessage {
+        /* Typewriter Efekti */
+        #specialMessage, #heartMessage {
             display: none;
             font-size: 1.4em;
             color: #ff4d4d;
@@ -129,37 +123,8 @@
             overflow: hidden;
             border-right: 2px solid #ff4d4d;
             animation: fadeIn 1s ease;
-        }
-
-        /* Şarkı Kontrolleri */
-        .music-controls {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #ffe6ea;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .music-controls button {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .music-controls button:hover {
-            background-color: #ff1a1a;
-            transform: scale(1.05);
+            max-width: 90%;
+            text-align: center;
         }
 
         /* Kalp Butonu */
@@ -184,8 +149,7 @@
         /* Mobil Uyum */
         @media (max-width: 768px) {
             h1 { font-size: 2.5em; }
-            .heart { width: 15px; height: 15px; }
-            #specialMessage { font-size: 1.1em; }
+            #specialMessage, #heartMessage { font-size: 1.1em; }
         }
     </style>
 </head>
@@ -203,30 +167,56 @@
     <button onclick="checkPassword()">Giriş Yap</button>
 </div>
 
-<!-- Özel Mesaj -->
+<!-- Kilit İle Açılan Özel Mesaj -->
 <div id="specialMessage"></div>
 
-<!-- Şarkı Kontrolleri -->
-<div class="music-controls" id="musicControls">
-    <audio id="bgMusic" src="./audio/music.mp3" loop></audio>
-    <button onclick="playMusic()">▶️ Başlat</button>
-    <button onclick="pauseMusic()">⏸️ Durdur</button>
-</div>
+<!-- Kalp Butonu İle Açılan Mesaj -->
+<div id="heartMessage"></div>
 
 <!-- Kalp Butonu -->
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
 <script>
-    function showPasswordBox() {
-        document.getElementById('passwordBox').style.display = 'block';
+    // Yıldız ve Kalp Efektleri Başlat
+    setInterval(() => {
+        createHeart();
+        createStar();
+    }, 300);
+
+    function createHeart() {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.width = Math.random() * 20 + 10 + "px";
+        heart.style.height = heart.style.width;
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+    }
+
+    function createStar() {
+        let star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(star);
+
+        setTimeout(() => star.remove(), 3000);
     }
 
     function checkPassword() {
-        if (document.getElementById('passwordInput').value === "eflal") {
-            document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕.";
-            document.getElementById('specialMessage').style.display = 'block';
-            document.getElementById('musicControls').style.display = 'flex';
-        }
+        document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕.\nHayatı birlikte daha anlamlı kılalım mı? 🌈🌟";
+        document.getElementById('specialMessage').style.display = 'block';
+    }
+
+    function showHeartMessage() {
+        const messages = [
+            "Seninle her şey daha güzel 🌸",
+            "Gülüşün kalbimi eritiyor 💖",
+            "Hayatımın anlamı sensin ✨"
+        ];
+        const message = messages[Math.floor(Math.random() * messages.length)];
+        document.getElementById('heartMessage').innerText = message;
+        document.getElementById('heartMessage').style.display = 'block';
     }
 </script>
 
