@@ -43,23 +43,13 @@
             animation: glow 1.5s ease-in-out infinite alternate;
             letter-spacing: 3px;
             margin-bottom: 20px;
-            z-index: 5;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
+            z-index: 10;
+            position: relative;
         }
 
         @keyframes glow {
-            from {
-                text-shadow: 0 0 20px #ff1a1a;
-            }
-            to {
-                text-shadow: 0 0 40px #ff4d4d;
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { text-shadow: 0 0 20px #ff1a1a; }
+            to { text-shadow: 0 0 40px #ff4d4d; }
         }
 
         /* Duygusal Mesaj */
@@ -68,8 +58,12 @@
             color: #ff4d4d;
             font-family: 'Poppins', sans-serif;
             margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 2s ease 1.5s forwards;
+            height: 30px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #ff4d4d;
+            z-index: 10;
+            position: relative;
         }
 
         /* Giriş Yap Butonu */
@@ -84,9 +78,9 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             animation: pulse 1.5s infinite;
+            z-index: 10;
+            position: relative;
             margin-top: 20px;
-            opacity: 0;
-            animation: fadeIn 2.5s ease forwards;
         }
 
         .login-btn:hover {
@@ -112,49 +106,56 @@
             top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1000;
+            z-index: 1000; /* Kalplerin üstünde olacak */
             text-align: center;
             backdrop-filter: blur(5px);
-            transition: opacity 0.3s ease;
-            animation: fadeIn 0.5s ease;
         }
 
-        /* Şarkı Kontrolü */
-        .music-controls {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: rgba(255, 244, 244, 0.7);
-            padding: 10px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 2s ease forwards;
+        .password-box input, .password-box button {
+            padding: 12px;
+            font-size: 1em;
+            margin: 5px;
+            border-radius: 10px;
+            border: 1px solid #ff4d4d;
+            outline: none;
+            width: 80%;
         }
 
-        .music-btn {
+        .password-box button {
             background-color: #ff4d4d;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 1em;
+            padding: 10px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
         }
 
-        .music-btn:hover {
+        .password-box button:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
         }
 
-        /* Mobil Uyum */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8em; }
-            .romantic-message { font-size: 1.2em; }
-            .login-btn { font-size: 1em; padding: 10px 30px; }
-            .music-btn { font-size: 0.9em; padding: 8px 16px; }
+        /* Kalp Yağmuru */
+        .heart {
+            position: fixed;
+            color: #ff4d4d;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: fall 4s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100px) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -162,59 +163,66 @@
 
 <h1>Eflal ❤️</h1>
 
-<!-- Duygusal Mesaj Alanı -->
 <div class="romantic-message" id="romanticMessage">...</div>
 
-<!-- Giriş Yap Butonu -->
 <button class="login-btn" onclick="showPasswordBox()">Giriş Yap</button>
 
-<!-- Şarkı Kontrolü -->
-<div class="music-controls">
-    <button class="music-btn" onclick="playMusic()">▶ Başlat</button>
-    <button class="music-btn" onclick="pauseMusic()">⏸ Durdur</button>
-    <span id="songName">🌹 Can't Help Falling in Love</span>
-</div>
-
-<!-- Kilit Paneli -->
-<div id="passwordBox" class="password-box">
+<div class="password-box" id="passwordBox">
     <input type="password" id="passwordInput" placeholder="Şifreyi gir..." />
     <button onclick="checkPassword()">Giriş Yap</button>
 </div>
 
-<audio id="bgMusic" src="audio/cant_help_falling_in_love.mp3"></audio>
+<audio id="bgMusic" preload="auto">
+    <source src="cant_help_falling_in_love.mp3" type="audio/mp3">
+    Tarayıcınız ses dosyasını desteklemiyor.
+</audio>
 
-<!-- Kalp Yağmuru -->
 <script>
+    const bgMusic = document.getElementById("bgMusic");
+
+    // Şarkıyı başlat
+    function playMusic() {
+        if (bgMusic) {
+            bgMusic.muted = false;
+            bgMusic.play().catch(e => console.error("Şarkı başlatılamadı:", e));
+        }
+    }
+
+    // Şarkıyı durdur
+    function pauseMusic() {
+        if (bgMusic) {
+            bgMusic.pause();
+        }
+    }
+
+    // Şifre panelini aç
+    function showPasswordBox() {
+        const passwordBox = document.getElementById('passwordBox');
+        passwordBox.style.display = 'block';
+    }
+
+    // Şifreyi kontrol et
+    function checkPassword() {
+        const password = document.getElementById('passwordInput').value;
+        if (password === 'eflal') {
+            window.location.href = 'ozel.html';
+        } else {
+            alert("Yanlış şifre! Tekrar dene ❤️");
+        }
+    }
+
+    // Kalp Yağmurunu Başlat
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        heart.innerText = '❤️';
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${Math.random() * 2 + 1}s`;
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 4000);
     }
+    setInterval(createHeart, 200);
 
-    setInterval(createHeart, 300);
-
-    function playMusic() {
-        document.getElementById('bgMusic').play();
-    }
-
-    function pauseMusic() {
-        document.getElementById('bgMusic').pause();
-    }
-
-    function showPasswordBox() {
-        document.getElementById('passwordBox').style.display = 'block';
-    }
-
-    function checkPassword() {
-        if (document.getElementById('passwordInput').value === 'eflal') {
-            window.location.href = 'ozel.html';
-        }
-    }
 </script>
 
 </body>
