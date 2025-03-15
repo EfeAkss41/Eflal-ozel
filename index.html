@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eflal ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
+        body {
+            font-family: 'Parisienne', cursive;
+            background-color: #ffeff5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #ff4d4d;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('https://source.unsplash.com/1600x900/?love');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(5px);
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 3em;
+            color: #ff1a1a;
+            text-shadow: 0 0 15px #ff4d4d;
+            animation: shine 2s infinite alternate;
+            letter-spacing: 2px;
+        }
+        @keyframes shine {
+            from { text-shadow: 0 0 15px #ff1a1a; }
+            to { text-shadow: 0 0 30px #ff6666; }
+        }
+        .heart-btn, .control-btn {
+            margin-top: 15px;
+            padding: 12px 25px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin-right: 5px;
+        }
+        .heart-btn:hover, .control-btn:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.05);
+        }
+        .hidden-heart-message {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ffdee3;
+            color: #ff1a1a;
+            border-radius: 10px;
+            display: none;
+            font-size: 1.2em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: heart-pulse 1s ease infinite alternate;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+        @keyframes heart-pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        .star-effect {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #ffcccb;
+            box-shadow: 0 0 15px #ff6666;
+            animation: star-fall 2s linear infinite;
+        }
+        @keyframes star-fall {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(600px);
+                opacity: 1;
+            }
+        }
+        .hidden-gallery {
+            display: none;
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hidden-gallery img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .hidden-gallery img:hover {
+            transform: scale(1.1);
+        }
+        .volume-control {
+            margin-top: 10px;
+            width: 150px;
+            accent-color: #ff4d4d;
+        }
+
+        /* Mobil için özel düzenlemeler */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            .heart-btn, .control-btn {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+            .hidden-heart-message {
+                font-size: 1em;
+                padding: 12px;
+            }
+            .hidden-gallery img {
+                width: 80px;
+                height: 80px;
+            }
+            .volume-control {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Eflal ❤️</h1>
+
+    <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
+
+    <div id="heartMessage" class="hidden-heart-message">Eflal, kalbimin en güzel köşesinde hep sen varsın. Gülüşünle dünyam aydınlanıyor, varlığınla her şey anlam kazanıyor. Seni sonsuz seviyorum. ❤️</div>
+
+    <div id="gallery" class="hidden-gallery">
+        <img src="images/heart.jpg" alt="Heart" />
+        <img src="images/rose.jpg" alt="Rose" />
+        <img src="images/sunset.jpg" alt="Sunset" />
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="audio/music.mp3" type="audio/mpeg">
+        Tarayıcınız ses dosyasını desteklemiyor.
+    </audio>
+
+    <!-- Müzik Kontrol Butonları -->
+    <div>
+        <button class="control-btn" onclick="playMusic()">▶️ Başlat</button>
+        <button class="control-btn" onclick="pauseMusic()">⏸️ Durdur</button>
+        <input class="volume-control" type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
+    </div>
+
+    <script>
+        const audio = document.getElementById('bg-music');
+
+        function showHeartMessage() {
+            const message = document.getElementById('heartMessage');
+            const gallery = document.getElementById('gallery');
+            message.style.display = 'block';
+            message.style.animation = 'heart-pulse 1s ease infinite alternate';
+            gallery.style.display = 'flex';
+        }
+
+        function playMusic() {
+            audio.play();
+        }
+
+        function pauseMusic() {
+            audio.pause();
+        }
+
+        function setVolume(value) {
+            audio.volume = value;
+        }
+
+        function createStars() {
+            for (let i = 0; i < 20; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star-effect');
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                document.body.appendChild(star);
+
+                setTimeout(() => {
+                    star.remove();
+                }, 2000);
+            }
+        }
+
+        setInterval(createStars, 500);
+    </script>
+</body>
+</html>
