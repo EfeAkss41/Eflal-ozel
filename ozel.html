@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sana Özel ❤️</title>
+    <title>Eflal'a Özel ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -11,10 +11,6 @@
         /* Genel Ayarlar */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #ffdde1;
-            color: #ff4d4d;
-            text-align: center;
-            overflow: hidden;
             margin: 0;
             padding: 0;
             display: flex;
@@ -22,183 +18,172 @@
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
-            background-image: url('https://source.unsplash.com/1600x900/?romantic');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(10px);
+            color: #ff4d4d;
+            text-align: center;
+            background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
+            background-size: 300% 300%;
+            animation: gradientBG 6s ease infinite;
+            overflow: hidden;
             position: relative;
+            backdrop-filter: blur(10px);
         }
 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Başlık */
         h1 {
-            font-size: 3.8em;
+            font-size: 4.5em;
             color: #ff4d4d;
             font-family: 'Parisienne', cursive;
-            text-shadow: 0 0 20px #ff1a1a;
-            animation: glow 2s infinite alternate;
+            text-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+            animation: fadeIn 1.5s ease forwards, heartbeat 1.5s infinite;
             margin-bottom: 20px;
             opacity: 0;
-            animation: fadeIn 1.5s ease-in-out forwards;
-            letter-spacing: 2px;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 15px #ff1a1a; }
-            to { text-shadow: 0 0 30px #ff4d4d; }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .message {
-            font-size: 1.6em;
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Açılma Mesajı */
+        .confession {
+            font-size: 1.8em;
             color: #ff4d4d;
-            background-color: rgba(255, 244, 244, 0.8);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            opacity: 0;
-            animation: fadeIn 1.5s ease-in-out forwards;
-            width: 80%;
-            max-width: 600px;
-            line-height: 1.8;
             font-family: 'Poppins', sans-serif;
-            border: 2px solid #ff4d4d;
-            margin-top: 10px;
+            margin-top: 30px;
+            max-width: 700px;
+            opacity: 0;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            text-align: center;
+            animation: fadeInMessage 2s ease forwards;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             backdrop-filter: blur(5px);
         }
 
-        .signature {
-            font-family: 'Parisienne', cursive;
-            font-size: 2em;
-            margin-top: 20px;
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Teklif Butonu */
+        .proposal-btn {
+            padding: 14px 40px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.4em;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            animation: pulse 1.5s infinite;
+            margin-top: 30px;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .proposal-btn:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Kabul Mesajı */
+        .response-message {
+            font-size: 1.6em;
             color: #ff4d4d;
+            font-family: 'Poppins', sans-serif;
+            position: fixed;
+            top: 50%; /* Sayfanın ortasına getiriyoruz */
+            left: 50%;
+            transform: translate(-50%, -50%);
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-
-        /* Kalp Yağmuru */
-        .heart {
-            position: absolute;
-            color: #ff4d4d;
-            font-size: 20px;
-            opacity: 0.7;
-            animation: fall 4s linear;
-            z-index: -1;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-100px) scale(0.8);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh) scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        /* Yıldız Efekti */
-        .star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: twinkle 3s linear infinite;
-            z-index: -2;
-        }
-
-        @keyframes twinkle {
-            0% { transform: scale(0.5); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.5); opacity: 0.5; }
-        }
-
-        /* Typewriter Efekti */
-        .typewriter::after {
-            content: "|";
-            display: inline-block;
-            margin-left: 5px;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Mobil Uyum */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            .message { font-size: 1.2em; padding: 15px; }
-            .signature { font-size: 1.5em; }
+            animation: fadeIn 1s ease forwards;
+            white-space: pre-wrap;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            line-height: 1.6;
+            max-width: 600px;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            display: none; /* Başlangıçta gizli */
         }
     </style>
 </head>
 <body>
 
-<h1 class="typewriter">Sen Benim İçin Bir Mucizesin ❤️</h1>
+<h1>❤️ Eflal'a Özel ❤️</h1>
 
-<div class="message">
-    Kalbimde hep senin için özel bir yer var.  
-    Gözlerin yıldızlar kadar parlak,  
-    Gülüşün içimi ısıtan bir güneş gibi.  
-    Varlığın bana huzur ve mutluluk veriyor.  
-    Seninle geçen her an bir mucize.  
-</div>
+<!-- Açılma Mesajı -->
+<div class="confession" id="confessionText"></div>
 
-<div class="signature">
-    💖 Seni sonsuz seviyorum... 💖
-</div>
+<!-- Teklif Butonu -->
+<button id="proposalButton" class="proposal-btn">❤️ Benimle Olur Musun? ❤️</button>
 
-<!-- Kalp ve Yıldız Yağmuru -->
+<!-- Kabul Mesajı -->
+<div class="response-message" id="responseMessage"></div>
+
+<!-- ŞARKI -->
+<audio id="bgMusic" loop>
+    <source src="perfect.mp3" type="audio/mp3">
+</audio>
+
 <script>
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 3 + 2 + 's'; 
-        heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-        document.body.appendChild(heart);
+    const confessionText = `Eflal,  
+    Seninle her anım bir masal gibi...  
+    Gülüşün içimi ısıtıyor, bakışların ruhumu sarıyor.  
+    Kalbimdeki en özel yer hep sana ait.  
+    Gelecekte her anımı seninle paylaşmak istiyorum.  
+    Hayatımın geri kalanında benimle olur musun? ❤️`;
 
-        setTimeout(() => heart.remove(), 4000);
-    }
+    let index = 0;
 
-    function createStar() {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.animationDuration = Math.random() * 5 + 2 + 's';
-        document.body.appendChild(star);
-
-        setTimeout(() => star.remove(), 4000);
-    }
-
-    setInterval(createHeart, 200); // Kalpler sürekli düşecek
-    setInterval(createStar, 300); // Yıldızlar sürekli parlayacak
-
-    // Typewriter Efekti
-    const text = "Sen Benim İçin Bir Mucizesin ❤️";
-    let i = 0;
-    const header = document.querySelector('.typewriter');
-
-    function typeWriter() {
-        if (i < text.length) {
-            header.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
+    function typeConfession() {
+        if (index < confessionText.length) {
+            document.getElementById("confessionText").innerText += confessionText.charAt(index);
+            index++;
+            setTimeout(typeConfession, 40);
         }
     }
 
+    window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("proposalButton").addEventListener("click", () => {
+            const message = "❤️ Evet dediğini hayal ediyorum! ❤️\nO zaman ne duruyorsun? Git ve cevabını mutlu bir şekilde sevdiğine ilet! 😍";
+            const response = document.getElementById("responseMessage");
+            response.innerText = message;
+            response.style.opacity = 1;
+            response.style.display = "block"; // Görünür hale getiriyoruz
+        });
+    });
+
     window.onload = () => {
-        header.innerHTML = "";
-        typeWriter();
+        typeConfession();
+        document.getElementById("bgMusic").play();
     };
 </script>
 
