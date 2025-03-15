@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-        /* Genel Ayarlar */
+        /* GENEL AYARLAR */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -22,9 +22,8 @@
             text-align: center;
             background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
             background-size: 300% 300%;
-            animation: gradientBG 6s ease infinite;
+            animation: gradientBG 8s ease infinite;
             overflow: hidden;
-            position: relative;
             transition: background-color 0.5s ease;
         }
 
@@ -35,12 +34,11 @@
         }
 
         h1 {
-            font-size: 3.8em;
+            font-size: 3.5em;
             color: #ff4d4d;
             text-shadow: 0 0 20px #ff1a1a;
-            letter-spacing: 2px;
-            animation: fadeIn 1.5s ease, pulse 2s infinite;
             font-family: 'Parisienne', cursive;
+            animation: fadeIn 1.5s ease;
         }
 
         @keyframes fadeIn {
@@ -48,32 +46,23 @@
             to { opacity: 1; }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Kilit İkonu */
+        /* KİLİT TUŞU */
         .lock-icon {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 2.5em;
+            font-size: 2em;
             color: #ff4d4d;
             cursor: pointer;
             transition: transform 0.2s ease;
-            z-index: 999;
-            animation: heartbeat 2s infinite;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        .lock-icon:hover {
+            transform: scale(1.2);
         }
 
-        /* Şifre Kutusu */
+        /* KİLİT PANELİ */
         .password-box {
             display: none;
             background-color: #ffe6ea;
@@ -84,7 +73,6 @@
             top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
             z-index: 1000;
         }
 
@@ -95,6 +83,7 @@
             border-radius: 5px;
             border: 1px solid #ff4d4d;
             outline: none;
+            width: 80%;
         }
 
         .password-box button {
@@ -108,13 +97,12 @@
             background-color: #ff1a1a;
         }
 
-        /* Mesaj Alanı */
-        #specialMessage {
+        /* MESAJ ALANI */
+        #specialMessage, #heartMessage {
             display: none;
-            font-size: 1.6em;
+            font-size: 1.5em;
             padding: 20px;
-            color: #ff4d4d;
-            background-color: #ffe6ea;
+            background-color: rgba(255, 244, 244, 0.9);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             animation: fadeIn 1s ease;
@@ -122,9 +110,10 @@
             white-space: pre-wrap;
             text-align: center;
             margin-top: 20px;
+            border-right: 2px solid #ff4d4d;
         }
 
-        /* Kalp Butonu */
+        /* KALP BUTONU */
         .heart-btn {
             padding: 14px 30px;
             background-color: #ff4d4d;
@@ -133,10 +122,10 @@
             border-radius: 30px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             margin-top: 15px;
             animation: pulse 2s infinite;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .heart-btn:hover {
@@ -144,13 +133,13 @@
             transform: scale(1.05);
         }
 
-        /* Şarkı Kontrolü */
+        /* ŞARKI KONTROLÜ */
         .music-controls {
             display: none;
             margin-top: 20px;
             padding: 15px;
             background-color: #ffe6ea;
-            border-radius: 15px;
+            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             width: 100%;
             max-width: 400px;
@@ -176,29 +165,36 @@
 
 <h1>Eflal ❤️</h1>
 
-<!-- Kilit İkonu -->
 <div class="lock-icon" onclick="showPasswordBox()">🔒</div>
 
-<!-- Şifre Kutusu -->
 <div id="passwordBox" class="password-box">
     <input type="password" id="passwordInput" placeholder="Şifreyi gir..." />
     <button onclick="checkPassword()">Giriş Yap</button>
 </div>
 
-<!-- Mesaj -->
-<div id="specialMessage">Kalbimde sana ait özel bir yer var 💕</div>
+<div id="specialMessage"></div>
 
-<!-- Kalp Butonu -->
-<button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
-
-<!-- Şarkı Kontrolü -->
 <div class="music-controls">
     <audio id="bgMusic" src="./audio/music.mp3" loop></audio>
     <button onclick="playMusic()">▶️ Başlat</button>
     <button onclick="pauseMusic()">⏸️ Durdur</button>
 </div>
 
+<button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
+
 <script>
+    function showPasswordBox() {
+        document.getElementById('passwordBox').style.display = 'block';
+    }
+
+    function checkPassword() {
+        if (document.getElementById('passwordInput').value === "eflal") {
+            document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕";
+            document.getElementById('specialMessage').style.display = 'block';
+            document.querySelector('.music-controls').style.display = 'block';
+        }
+    }
+
     function playMusic() { bgMusic.play(); }
     function pauseMusic() { bgMusic.pause(); }
 </script>
