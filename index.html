@@ -56,6 +56,7 @@
             color: #ff4d4d;
             cursor: pointer;
             transition: transform 0.2s ease;
+            z-index: 999;
         }
 
         .lock-icon:hover {
@@ -75,14 +76,8 @@
         }
 
         @keyframes fall {
-            from {
-                transform: translateY(-100px);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
+            from { transform: translateY(-100px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
         }
 
         /* Şifre Kutusu */
@@ -109,6 +104,17 @@
             outline: none;
         }
 
+        .password-box button {
+            background-color: #ff4d4d;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .password-box button:hover {
+            background-color: #ff1a1a;
+        }
+
         /* Özel Mesaj Typewriter Efekti */
         #specialMessage {
             display: none;
@@ -117,25 +123,23 @@
             padding: 15px;
             margin-top: 20px;
             border-radius: 10px;
-            animation: fadeIn 0.5s ease;
             background-color: #ffe6ea;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-width: 90%;
             white-space: pre-wrap;
             overflow: hidden;
             border-right: 2px solid #ff4d4d;
+            animation: fadeIn 1s ease;
         }
 
         /* Şarkı Kontrolleri */
         .music-controls {
-            display: none;
             margin-top: 30px;
             padding: 15px;
             background-color: #ffe6ea;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: flex;
-            gap: 10px;
+            display: none;
+            flex-direction: column;
             align-items: center;
             width: 100%;
             max-width: 400px;
@@ -158,12 +162,23 @@
             transform: scale(1.05);
         }
 
-        progress {
-            width: 100%;
-            height: 8px;
-            border-radius: 10px;
-            background-color: #ffd6e0;
-            overflow: hidden;
+        /* Kalp Butonu */
+        .heart-btn {
+            padding: 12px 25px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin-top: 15px;
+        }
+
+        .heart-btn:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.05);
         }
 
         /* Mobil Uyum */
@@ -198,21 +213,20 @@
     <button onclick="pauseMusic()">⏸️ Durdur</button>
 </div>
 
+<!-- Kalp Butonu -->
+<button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
+
 <script>
+    function showPasswordBox() {
+        document.getElementById('passwordBox').style.display = 'block';
+    }
+
     function checkPassword() {
         if (document.getElementById('passwordInput').value === "eflal") {
-            document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕. Hayatı birlikte daha anlamlı kılalım mı? 🌈🌟";
+            document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕.";
             document.getElementById('specialMessage').style.display = 'block';
             document.getElementById('musicControls').style.display = 'flex';
         }
-    }
-
-    function playMusic() {
-        bgMusic.play();
-    }
-
-    function pauseMusic() {
-        bgMusic.pause();
     }
 </script>
 
