@@ -19,9 +19,9 @@
             min-height: 100vh;
             color: #ff4d4d;
             text-align: center;
-            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #ffdde1);
+            background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
             background-size: 300% 300%;
-            animation: gradientBG 6s ease infinite;
+            animation: gradientBG 8s ease infinite;
             overflow: hidden;
             position: relative;
             transition: background-color 0.5s ease;
@@ -34,9 +34,9 @@
         }
 
         h1 {
-            font-size: 3.5em;
+            font-size: 4em;
             color: #ff4d4d;
-            text-shadow: 0 0 15px #ff1a1a;
+            text-shadow: 0 0 20px #ff1a1a;
             letter-spacing: 2px;
             animation: fadeIn 1.5s ease;
             font-family: 'Parisienne', cursive;
@@ -63,82 +63,81 @@
             transform: scale(1.2);
         }
 
-        /* Parlayan Yıldız Efekti */
-        .star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: white;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: fallStar 3s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes fallStar {
-            from {
-                transform: translateY(-100px);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
         /* Kalp Yağmuru */
         .heart {
             position: absolute;
-            width: 20px;
-            height: 20px;
             background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
             background-size: cover;
-            opacity: 0.7;
+            opacity: 0.6;
             animation: fallHeart 3s linear infinite;
             z-index: -1;
         }
 
         @keyframes fallHeart {
             from {
-                transform: translateY(-100px);
+                transform: translateY(-100px) scale(0.7);
                 opacity: 1;
             }
             to {
-                transform: translateY(100vh);
+                transform: translateY(100vh) scale(1.2);
                 opacity: 0;
             }
+        }
+
+        /* Parlayan Yıldızlar */
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: starShine 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes starShine {
+            0% { transform: translateY(-100px) scale(0.5); opacity: 1; }
+            100% { transform: translateY(100vh) scale(1); opacity: 0; }
         }
 
         /* Typewriter Efekti */
         #specialMessage, #heartMessage {
             display: none;
-            font-size: 1.4em;
+            font-size: 1.6em;
             color: #ff4d4d;
-            padding: 15px;
+            padding: 20px;
             margin-top: 20px;
-            border-radius: 10px;
-            background-color: #ffe6ea;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            background-color: rgba(255, 244, 244, 0.9);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             white-space: pre-wrap;
             overflow: hidden;
             border-right: 2px solid #ff4d4d;
             animation: fadeIn 1s ease;
-            max-width: 90%;
+            max-width: 80%;
             text-align: center;
         }
 
         /* Kalp Butonu */
         .heart-btn {
-            padding: 12px 25px;
+            padding: 14px 30px;
             background-color: #ff4d4d;
             color: white;
             border: none;
             border-radius: 30px;
-            font-size: 1em;
+            font-size: 1.2em;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         .heart-btn:hover {
@@ -148,8 +147,9 @@
 
         /* Mobil Uyum */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            #specialMessage, #heartMessage { font-size: 1.1em; }
+            h1 { font-size: 2.8em; }
+            #specialMessage, #heartMessage { font-size: 1.3em; }
+            .heart-btn { font-size: 1em; }
         }
     </style>
 </head>
@@ -159,13 +159,6 @@
 
 <!-- Kilit İkonu -->
 <div class="lock-icon" onclick="showPasswordBox()">🔒</div>
-
-<!-- Şifre Kutusu -->
-<div id="passwordBox" class="password-box">
-    <p>Şifreyi gir:</p>
-    <input type="password" id="passwordInput">
-    <button onclick="checkPassword()">Giriş Yap</button>
-</div>
 
 <!-- Kilit İle Açılan Özel Mesaj -->
 <div id="specialMessage"></div>
@@ -177,7 +170,6 @@
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
 <script>
-    // Yıldız ve Kalp Efektleri Başlat
     setInterval(() => {
         createHeart();
         createStar();
@@ -187,7 +179,7 @@
         let heart = document.createElement('div');
         heart.classList.add('heart');
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.width = Math.random() * 20 + 10 + "px";
+        heart.style.width = Math.random() * 30 + "px";
         heart.style.height = heart.style.width;
         document.body.appendChild(heart);
 
@@ -203,19 +195,8 @@
         setTimeout(() => star.remove(), 3000);
     }
 
-    function checkPassword() {
-        document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕.\nHayatı birlikte daha anlamlı kılalım mı? 🌈🌟";
-        document.getElementById('specialMessage').style.display = 'block';
-    }
-
     function showHeartMessage() {
-        const messages = [
-            "Seninle her şey daha güzel 🌸",
-            "Gülüşün kalbimi eritiyor 💖",
-            "Hayatımın anlamı sensin ✨"
-        ];
-        const message = messages[Math.floor(Math.random() * messages.length)];
-        document.getElementById('heartMessage').innerText = message;
+        document.getElementById('heartMessage').innerText = "Seninle her şey daha güzel 🌸✨";
         document.getElementById('heartMessage').style.display = 'block';
     }
 </script>
