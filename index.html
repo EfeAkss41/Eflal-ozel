@@ -102,30 +102,37 @@
             100% { transform: scale(1); }
         }
 
-        /* KALP & YILDIZ YAĞMURU */
-        .heart, .star {
-            position: fixed;
-            font-size: 20px;
+        /* ŞİFRE GİRİŞ KUTUSU */
+        .password-box {
+            display: none;
+            margin-top: 20px;
+        }
+
+        input[type="password"] {
+            padding: 12px;
+            width: 250px;
+            border: 2px solid #ff4d4d;
+            border-radius: 30px;
+            outline: none;
+            font-size: 1em;
             color: #ff4d4d;
-            opacity: 0.8;
-            animation: fall 4s linear infinite;
-            pointer-events: none;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+            transition: 0.3s ease;
+            text-align: center;
         }
 
-        .star {
-            color: #ffd700;
-            font-size: 15px;
+        input[type="password"]:focus {
+            border-color: #ff1a1a;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
-        @keyframes fall {
-            from {
-                transform: translateY(-100px) translateX(0) rotate(0deg);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh) translateX(30px) rotate(360deg);
-                opacity: 0;
-            }
+        /* HATA MESAJI */
+        .error-message {
+            color: #ff1a1a;
+            margin-top: 10px;
+            font-size: 1.1em;
+            display: none;
         }
 
         /* === TELEFON (MOBİL) TASARIMI === */
@@ -144,10 +151,6 @@
                 font-size: 1.1em;
                 padding: 12px 30px;
             }
-
-            .heart, .star {
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -155,7 +158,6 @@
 
 <h1>❤️ Eflal ❤️</h1>
 
-<!-- ROMANTİK MESAJ -->
 <div class="romantic-message">
     "Seninle her gün bir mucize...  
     Gözlerin kalbime dokunuyor,  
@@ -163,24 +165,34 @@
     Her anımı seninle yaşamak istiyorum. ❤️"  
 </div>
 
-<!-- GİRİŞ BUTONU -->
-<button class="login-btn" onclick="goToSecretPage()">❤️ Giriş Yap ❤️</button>
+<!-- GİRİŞ YAP BUTONU -->
+<button class="login-btn" onclick="askForPassword()">❤️ Giriş Yap ❤️</button>
+
+<!-- ŞİFRE GİRİŞ KUTUSU -->
+<div class="password-box">
+    <input type="password" id="passwordInput" placeholder="Şifreyi Gir">
+    <button class="login-btn" onclick="checkPassword()">✔️ Onayla</button>
+    <div class="error-message" id="errorMessage">❌ Yanlış şifre! Tekrar dene.</div>
+</div>
 
 <script>
-    // Kalp ve Yıldız Yağmuru
-    setInterval(() => {
-        const element = document.createElement('div');
-        element.classList.add(Math.random() > 0.5 ? 'heart' : 'star');
-        element.innerText = Math.random() > 0.5 ? '❤️' : '✨';
-        element.style.left = Math.random() * 100 + 'vw';
-        element.style.animationDuration = Math.random() * 2 + 3 + 's';
-        document.body.appendChild(element);
-        setTimeout(() => element.remove(), 4000);
-    }, 300);
+    function askForPassword() {
+        document.querySelector('.password-box').style.display = 'block';
+    }
 
-    // Sayfaya Yönlendirme
-    function goToSecretPage() {
-        window.location.href = "ozel.html";
+    function checkPassword() {
+        const password = document.getElementById('passwordInput').value;
+        const correctPassword = "eflal";
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (password === correctPassword) {
+            window.location.href = "ozel.html";
+        } else {
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 2000);
+        }
     }
 </script>
 
