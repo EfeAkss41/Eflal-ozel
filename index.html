@@ -22,7 +22,7 @@
             text-align: center;
             background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
             background-size: 300% 300%;
-            animation: gradientBG 6s ease infinite;
+            animation: gradientBG 8s ease infinite;
             overflow: hidden;
             position: relative;
             transition: background-color 0.5s ease;
@@ -35,7 +35,7 @@
         }
 
         h1 {
-            font-size: 4em;
+            font-size: 3.8em;
             color: #ff4d4d;
             text-shadow: 0 0 20px #ff1a1a;
             letter-spacing: 2px;
@@ -51,25 +51,6 @@
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Kilit İkonu */
-        .lock-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2.5em;
-            color: #ff4d4d;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            z-index: 999;
-            animation: heartbeat 2s infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
@@ -108,7 +89,7 @@
         /* Mesaj Alanı */
         #specialMessage, #heartMessage {
             display: none;
-            font-size: 1.6em;
+            font-size: 1.4em;
             color: #ff4d4d;
             padding: 20px;
             margin-top: 20px;
@@ -148,19 +129,18 @@
 
 <h1>Eflal ❤️</h1>
 
-<div class="lock-icon" onclick="showPasswordBox()">🔒</div>
-
+<!-- Mesaj -->
 <div id="specialMessage"></div>
-
 <div id="heartMessage"></div>
 
+<!-- Kalp Butonu -->
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
 <script>
     setInterval(() => {
         createHeart();
         createStar();
-    }, 200);
+    }, 300);
 
     function createHeart() {
         let heart = document.createElement('div');
@@ -181,7 +161,9 @@
     }
 
     function showHeartMessage() {
-        document.getElementById('heartMessage').innerText = "Seninle her şey daha güzel 🌸✨";
+        const messages = ["Seninle her şey daha güzel 🌸", "Gülüşün kalbimi eritiyor 💖", "Hayatımın anlamı sensin ✨"];
+        const message = messages[Math.floor(Math.random() * messages.length)];
+        document.getElementById('heartMessage').innerText = message;
         document.getElementById('heartMessage').style.display = 'block';
     }
 </script>
