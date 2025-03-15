@@ -119,25 +119,34 @@
             animation: fadeIn 0.5s ease;
         }
 
-        /* Kalp Yağmuru */
-        .heart {
-            position: absolute;
-            color: #ff4d4d;
-            font-size: 24px;
-            animation: fall 4s linear;
-            opacity: 0.7;
-            z-index: -1;
+        /* Şarkı Kontrolü */
+        .music-controls {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 244, 244, 0.7);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 2s ease forwards;
         }
 
-        @keyframes fall {
-            from {
-                transform: translateY(-100px) scale(0.8);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh) scale(1.2);
-                opacity: 0;
-            }
+        .music-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .music-btn:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.05);
         }
 
         /* Mobil Uyum */
@@ -145,7 +154,7 @@
             h1 { font-size: 2.8em; }
             .romantic-message { font-size: 1.2em; }
             .login-btn { font-size: 1em; padding: 10px 30px; }
-            .password-box input, .password-box button { font-size: 1em; }
+            .music-btn { font-size: 0.9em; padding: 8px 16px; }
         }
     </style>
 </head>
@@ -159,11 +168,20 @@
 <!-- Giriş Yap Butonu -->
 <button class="login-btn" onclick="showPasswordBox()">Giriş Yap</button>
 
+<!-- Şarkı Kontrolü -->
+<div class="music-controls">
+    <button class="music-btn" onclick="playMusic()">▶ Başlat</button>
+    <button class="music-btn" onclick="pauseMusic()">⏸ Durdur</button>
+    <span id="songName">🌹 Can't Help Falling in Love</span>
+</div>
+
 <!-- Kilit Paneli -->
 <div id="passwordBox" class="password-box">
     <input type="password" id="passwordInput" placeholder="Şifreyi gir..." />
     <button onclick="checkPassword()">Giriş Yap</button>
 </div>
+
+<audio id="bgMusic" src="audio/cant_help_falling_in_love.mp3"></audio>
 
 <!-- Kalp Yağmuru -->
 <script>
@@ -173,7 +191,6 @@
         heart.innerHTML = '❤️';
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-        heart.style.fontSize = Math.random() * 20 + 20 + 'px';
         document.body.appendChild(heart);
 
         setTimeout(() => heart.remove(), 4000);
@@ -181,34 +198,23 @@
 
     setInterval(createHeart, 300);
 
+    function playMusic() {
+        document.getElementById('bgMusic').play();
+    }
+
+    function pauseMusic() {
+        document.getElementById('bgMusic').pause();
+    }
+
     function showPasswordBox() {
         document.getElementById('passwordBox').style.display = 'block';
     }
 
     function checkPassword() {
-        const password = document.getElementById('passwordInput').value;
-        if (password === 'eflal') {
+        if (document.getElementById('passwordInput').value === 'eflal') {
             window.location.href = 'ozel.html';
-        } else {
-            alert("Yanlış şifre! Tekrar dene ❤️");
         }
     }
-
-    // Rastgele Romantik Mesajlar
-    const messages = [
-        "Sen benim için bir mucizesin... 💖",
-        "Kalbimde senin için özel bir yer var ❤️",
-        "Hayatıma anlam katan en güzel şey sensin 🌹",
-        "Gözlerin yıldızlar kadar parlak ✨",
-        "Sonsuza kadar seninle olmak istiyorum 💫"
-    ];
-
-    function showRandomMessage() {
-        const messageBox = document.getElementById('romanticMessage');
-        messageBox.innerText = messages[Math.floor(Math.random() * messages.length)];
-    }
-
-    setInterval(showRandomMessage, 2500);
 </script>
 
 </body>
