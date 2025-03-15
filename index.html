@@ -47,61 +47,8 @@
             to { opacity: 1; }
         }
 
-        /* Kilit İkonu */
-        .lock-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2.5em;
-            color: #ff4d4d;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .lock-icon:hover {
-            transform: scale(1.2);
-        }
-
-        /* Kilit Paneli */
-        .password-box {
-            display: none;
-            background-color: #ffe6ea;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            text-align: center;
-        }
-
-        .password-box input, .password-box button {
-            padding: 10px;
-            font-size: 1em;
-            margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #ff4d4d;
-            outline: none;
-            width: 80%;
-        }
-
-        .password-box button {
-            background-color: #ff4d4d;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            border: none;
-        }
-
-        .password-box button:hover {
-            background-color: #ff1a1a;
-        }
-
         /* Mesaj Alanı */
-        #specialMessage, #heartMessage {
+        #heartMessage {
             display: none;
             font-size: 1.5em;
             padding: 20px;
@@ -115,6 +62,19 @@
             text-align: center;
             margin-top: 20px;
             border-right: 3px solid #ff4d4d;
+        }
+
+        /* Typewriter Efekti */
+        .typewriter::after {
+            content: "|";
+            display: inline-block;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* Kalp Butonu */
@@ -137,32 +97,17 @@
             transform: scale(1.05);
         }
 
-        /* Şarkı Kontrolü */
-        .music-controls {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #ffe6ea;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .music-controls button {
-            background-color: #ff4d4d;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin: 5px;
-            border: none;
-        }
-
-        .music-controls button:hover {
-            background-color: #ff1a1a;
+        /* Mobil Uyum */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            #heartMessage { font-size: 1.2em; }
+            .heart-btn { font-size: 1em; padding: 10px 20px; }
         }
     </style>
 </head>
@@ -170,61 +115,54 @@
 
 <h1>Eflal ❤️</h1>
 
-<!-- Kilit İkonu -->
-<div class="lock-icon" onclick="showPasswordBox()">🔒</div>
-
-<!-- Kilit Paneli -->
-<div id="passwordBox" class="password-box">
-    <input type="password" id="passwordInput" placeholder="Şifreyi gir..." />
-    <button onclick="checkPassword()">Giriş Yap</button>
-</div>
-
-<!-- Özel Mesaj -->
-<div id="specialMessage"></div>
-
-<!-- Şarkı Kontrolü -->
-<div class="music-controls">
-    <audio id="bgMusic" src="./audio/music.mp3" loop></audio>
-    <button onclick="playMusic()">▶️ Başlat</button>
-    <button onclick="pauseMusic()">⏸️ Durdur</button>
-</div>
+<!-- İltifat Alanı -->
+<div id="heartMessage" class="typewriter"></div>
 
 <!-- Kalp Butonu -->
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
 <script>
+    // Rastgele İltifatlar
     const compliments = [
         "Gülüşün kalbimi eriten bir güneş ışığı gibi 🌸",
-        "Seninle geçen her an bir mucize 💖",
-        "Gözlerin yıldızlar kadar parlak ✨",
-        "Varlığın kalbimde huzur yaratıyor 🍀",
-        "Sana olan sevgim okyanus kadar derin 🌊"
+        "Seninle geçen her an, bir mucize gibi 💖",
+        "Kalbimde hep senin için bir yer var ❤️",
+        "Gözlerin yıldızlar kadar parlak ve güzel ✨",
+        "Sana olan sevgim, okyanus kadar derin 🌊",
+        "Her gülüşünde dünyam aydınlanıyor 🌹",
+        "Varlığın kalbimde sonsuz bir huzur yaratıyor 🍀",
+        "Sen benim için bir rüyanın gerçeğe dönüşmüş hali gibisin 💫",
+        "Ellerin ellerimdeyken dünyayı unuturum 🥰",
+        "Sana baktığımda, kalbim daha hızlı çarpıyor 💓",
+        "Seninle olmak bir masal gibi ✨",
+        "Seninle her şey daha güzel 💖",
+        "Kalbim, senin için sonsuza kadar atacak 💕",
+        "Sen benim için bir yıldız gibisin, her zaman parlak ve güzel 🌟",
+        "Senin sevgin ruhumu ısıtıyor 🔥"
     ];
 
-    function showPasswordBox() {
-        document.getElementById('passwordBox').style.display = 'block';
-    }
+    let typingEffect;
 
-    function checkPassword() {
-        if (document.getElementById('passwordInput').value === "eflal") {
-            document.getElementById('specialMessage').innerText = "Kalbimde sana ait özel bir yer var 💕";
-            document.getElementById('specialMessage').style.display = 'block';
-            document.querySelector('.music-controls').style.display = 'block';
-        }
-    }
-
-    function playMusic() { 
-        document.getElementById('bgMusic').play(); 
-    }
-
-    function pauseMusic() { 
-        document.getElementById('bgMusic').pause(); 
-    }
-
+    // Rastgele İltifat Göster
     function showHeartMessage() {
-        const message = compliments[Math.floor(Math.random() * compliments.length)];
-        document.getElementById('heartMessage').innerText = message;
-        document.getElementById('heartMessage').style.display = 'block';
+        const messageBox = document.getElementById("heartMessage");
+        const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+
+        // Önce yazıyorsa sıfırla
+        clearInterval(typingEffect);
+
+        messageBox.style.display = "block";
+        messageBox.innerText = "";
+
+        let i = 0;
+        typingEffect = setInterval(() => {
+            if (i < randomCompliment.length) {
+                messageBox.innerText += randomCompliment.charAt(i);
+                i++;
+            } else {
+                clearInterval(typingEffect);
+            }
+        }, 50);
     }
 </script>
 
