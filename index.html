@@ -22,7 +22,7 @@
             text-align: center;
             background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
             background-size: 300% 300%;
-            animation: gradientBG 8s ease infinite;
+            animation: gradientBG 6s ease infinite;
             overflow: hidden;
             position: relative;
             transition: background-color 0.5s ease;
@@ -54,54 +54,74 @@
             100% { transform: scale(1); }
         }
 
-        /* Kalp Yağmuru */
-        .heart {
+        /* Kilit İkonu */
+        .lock-icon {
             position: absolute;
-            background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
-            background-size: cover;
-            opacity: 0.7;
-            animation: fallHeart 4s linear infinite;
-            z-index: -1;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5em;
+            color: #ff4d4d;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            z-index: 999;
+            animation: heartbeat 2s infinite;
         }
 
-        @keyframes fallHeart {
-            from { transform: translateY(-100px) scale(0.8); opacity: 1; }
-            to { transform: translateY(100vh) scale(1.2); opacity: 0; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        /* Parlayan Yıldızlar */
-        .star {
+        /* Şifre Kutusu */
+        .password-box {
+            display: none;
+            background-color: #ffe6ea;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             position: absolute;
-            width: 6px;
-            height: 6px;
-            background-color: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: starShine 4s linear infinite;
-            z-index: -1;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
         }
 
-        @keyframes starShine {
-            0% { transform: translateY(-100px) scale(0.5); opacity: 1; }
-            100% { transform: translateY(100vh) scale(1); opacity: 0; }
+        .password-box input, .password-box button {
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ff4d4d;
+            outline: none;
+        }
+
+        .password-box button {
+            background-color: #ff4d4d;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .password-box button:hover {
+            background-color: #ff1a1a;
         }
 
         /* Mesaj Alanı */
-        #specialMessage, #heartMessage {
+        #specialMessage {
             display: none;
-            font-size: 1.4em;
-            color: #ff4d4d;
+            font-size: 1.6em;
             padding: 20px;
-            margin-top: 20px;
+            color: #ff4d4d;
+            background-color: #ffe6ea;
             border-radius: 12px;
-            background-color: rgba(255, 244, 244, 0.9);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            white-space: pre-wrap;
-            overflow: hidden;
-            border-right: 2px solid #ff4d4d;
             animation: fadeIn 1s ease;
             max-width: 80%;
+            white-space: pre-wrap;
             text-align: center;
+            margin-top: 20px;
         }
 
         /* Kalp Butonu */
@@ -123,49 +143,64 @@
             background-color: #ff1a1a;
             transform: scale(1.05);
         }
+
+        /* Şarkı Kontrolü */
+        .music-controls {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffe6ea;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .music-controls button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin: 5px;
+        }
+
+        .music-controls button:hover {
+            background-color: #ff1a1a;
+        }
     </style>
 </head>
 <body>
 
 <h1>Eflal ❤️</h1>
 
+<!-- Kilit İkonu -->
+<div class="lock-icon" onclick="showPasswordBox()">🔒</div>
+
+<!-- Şifre Kutusu -->
+<div id="passwordBox" class="password-box">
+    <input type="password" id="passwordInput" placeholder="Şifreyi gir..." />
+    <button onclick="checkPassword()">Giriş Yap</button>
+</div>
+
 <!-- Mesaj -->
-<div id="specialMessage"></div>
-<div id="heartMessage"></div>
+<div id="specialMessage">Kalbimde sana ait özel bir yer var 💕</div>
 
 <!-- Kalp Butonu -->
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
+<!-- Şarkı Kontrolü -->
+<div class="music-controls">
+    <audio id="bgMusic" src="./audio/music.mp3" loop></audio>
+    <button onclick="playMusic()">▶️ Başlat</button>
+    <button onclick="pauseMusic()">⏸️ Durdur</button>
+</div>
+
 <script>
-    setInterval(() => {
-        createHeart();
-        createStar();
-    }, 300);
-
-    function createHeart() {
-        let heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.width = Math.random() * 30 + "px";
-        heart.style.height = heart.style.width;
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-    }
-
-    function createStar() {
-        let star = document.createElement('div');
-        star.classList.add('star');
-        star.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(star);
-        setTimeout(() => star.remove(), 4000);
-    }
-
-    function showHeartMessage() {
-        const messages = ["Seninle her şey daha güzel 🌸", "Gülüşün kalbimi eritiyor 💖", "Hayatımın anlamı sensin ✨"];
-        const message = messages[Math.floor(Math.random() * messages.length)];
-        document.getElementById('heartMessage').innerText = message;
-        document.getElementById('heartMessage').style.display = 'block';
-    }
+    function playMusic() { bgMusic.play(); }
+    function pauseMusic() { bgMusic.pause(); }
 </script>
 
 </body>
