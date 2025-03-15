@@ -8,6 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+        /* Genel Ayarlar */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -21,7 +22,7 @@
             text-align: center;
             background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
             background-size: 300% 300%;
-            animation: gradientBG 8s ease infinite;
+            animation: gradientBG 6s ease infinite;
             overflow: hidden;
             position: relative;
             transition: background-color 0.5s ease;
@@ -38,7 +39,7 @@
             color: #ff4d4d;
             text-shadow: 0 0 20px #ff1a1a;
             letter-spacing: 2px;
-            animation: fadeIn 1.5s ease;
+            animation: fadeIn 1.5s ease, pulse 2s infinite;
             font-family: 'Parisienne', cursive;
         }
 
@@ -47,20 +48,29 @@
             to { opacity: 1; }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         /* Kilit İkonu */
         .lock-icon {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 2em;
+            font-size: 2.5em;
             color: #ff4d4d;
             cursor: pointer;
             transition: transform 0.2s ease;
             z-index: 999;
+            animation: heartbeat 2s infinite;
         }
 
-        .lock-icon:hover {
-            transform: scale(1.2);
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
         /* Kalp Yağmuru */
@@ -68,20 +78,14 @@
             position: absolute;
             background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
             background-size: cover;
-            opacity: 0.6;
-            animation: fallHeart 3s linear infinite;
+            opacity: 0.7;
+            animation: fallHeart 4s linear infinite;
             z-index: -1;
         }
 
         @keyframes fallHeart {
-            from {
-                transform: translateY(-100px) scale(0.7);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh) scale(1.2);
-                opacity: 0;
-            }
+            from { transform: translateY(-100px) scale(0.8); opacity: 1; }
+            to { transform: translateY(100vh) scale(1.2); opacity: 0; }
         }
 
         /* Parlayan Yıldızlar */
@@ -92,7 +96,7 @@
             background-color: white;
             border-radius: 50%;
             opacity: 0.8;
-            animation: starShine 3s linear infinite;
+            animation: starShine 4s linear infinite;
             z-index: -1;
         }
 
@@ -101,7 +105,7 @@
             100% { transform: translateY(100vh) scale(1); opacity: 0; }
         }
 
-        /* Typewriter Efekti */
+        /* Mesaj Alanı */
         #specialMessage, #heartMessage {
             display: none;
             font-size: 1.6em;
@@ -134,22 +138,9 @@
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
         .heart-btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
-        }
-
-        /* Mobil Uyum */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8em; }
-            #specialMessage, #heartMessage { font-size: 1.3em; }
-            .heart-btn { font-size: 1em; }
         }
     </style>
 </head>
@@ -157,23 +148,19 @@
 
 <h1>Eflal ❤️</h1>
 
-<!-- Kilit İkonu -->
 <div class="lock-icon" onclick="showPasswordBox()">🔒</div>
 
-<!-- Kilit İle Açılan Özel Mesaj -->
 <div id="specialMessage"></div>
 
-<!-- Kalp Butonu İle Açılan Mesaj -->
 <div id="heartMessage"></div>
 
-<!-- Kalp Butonu -->
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
 <script>
     setInterval(() => {
         createHeart();
         createStar();
-    }, 300);
+    }, 200);
 
     function createHeart() {
         let heart = document.createElement('div');
@@ -182,8 +169,7 @@
         heart.style.width = Math.random() * 30 + "px";
         heart.style.height = heart.style.width;
         document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 3000);
+        setTimeout(() => heart.remove(), 4000);
     }
 
     function createStar() {
@@ -191,8 +177,7 @@
         star.classList.add('star');
         star.style.left = Math.random() * 100 + "vw";
         document.body.appendChild(star);
-
-        setTimeout(() => star.remove(), 3000);
+        setTimeout(() => star.remove(), 4000);
     }
 
     function showHeartMessage() {
