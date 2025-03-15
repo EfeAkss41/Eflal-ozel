@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eflal ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-        /* Genel Ayarlar */
+        /* GENEL AYARLAR */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -26,7 +26,6 @@
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
-            cursor: none;
         }
 
         @keyframes gradientBG {
@@ -35,69 +34,66 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Başlık */
+        /* BAŞLIK */
         h1 {
-            font-size: 5em;
+            font-size: 4.5em;
             color: #ff4d4d;
             font-family: 'Parisienne', cursive;
-            text-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
-            animation: fadeIn 2s ease forwards, heartbeat 1.5s infinite;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            z-index: 10;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
             opacity: 0;
-            position: relative;
+            animation: fadeIn 1.5s ease forwards;
+            margin-bottom: 20px;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Romantik Mesaj */
+        /* ROMANTİK MESAJ */
         .romantic-message {
             font-size: 1.8em;
             color: #ff4d4d;
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 3px solid #ff4d4d;
-            z-index: 10;
-            animation: shimmer 2s infinite;
+            margin-top: 20px;
+            max-width: 700px;
+            opacity: 0;
+            animation: fadeInMessage 3s ease forwards;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            line-height: 1.6;
+            text-align: center;
+            transition: all 0.5s ease;
         }
 
-        @keyframes shimmer {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Kalp Butonu */
-        .heart-btn {
-            padding: 12px 30px;
+        /* GİRİŞ YAP BUTONU */
+        .login-btn {
+            padding: 14px 40px;
             background-color: #ff4d4d;
             color: white;
             border: none;
-            border-radius: 20px;
-            font-size: 1.2em;
+            border-radius: 30px;
+            font-size: 1.4em;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
             transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 20px;
             animation: pulse 1.5s infinite;
+            margin-top: 30px;
+            z-index: 10;
         }
 
-        .heart-btn:hover {
+        .login-btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
         }
 
         @keyframes pulse {
@@ -106,46 +102,52 @@
             100% { transform: scale(1); }
         }
 
-        /* Giriş Yap Butonu */
-        .login-btn {
-            padding: 14px 40px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.3em;
-            cursor: pointer;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            animation: pulse 1.5s infinite;
-            z-index: 10;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .login-btn:hover {
-            background-color: #ff1a1a;
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
-        }
-
-        /* Gizli Mesaj */
-        #secretMessage {
-            display: none;
+        /* KALP & YILDIZ YAĞMURU */
+        .heart, .star {
+            position: fixed;
+            font-size: 20px;
             color: #ff4d4d;
-            font-size: 1.5em;
-            margin-top: 20px;
+            opacity: 0.8;
+            animation: fall 4s linear infinite;
+            pointer-events: none;
         }
 
-        /* Giriş Yap Paneli */
-        .password-box {
-            display: none;
-            padding: 20px;
-            background: rgba(255, 244, 244, 0.9);
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            animation: fadeIn 0.3s ease;
+        .star {
+            color: #ffd700;
+            font-size: 15px;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100px) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) translateX(30px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* === TELEFON (MOBİL) TASARIMI === */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8em;
+            }
+
+            .romantic-message {
+                font-size: 1.2em;
+                padding: 15px;
+                max-width: 90%;
+            }
+
+            .login-btn {
+                font-size: 1.1em;
+                padding: 12px 30px;
+            }
+
+            .heart, .star {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -153,37 +155,32 @@
 
 <h1>❤️ Eflal ❤️</h1>
 
-<div class="romantic-message">"Sen benim için bir mucizesin..."</div>
-
-<button class="heart-btn" onclick="showSecretMessage()">💌 Bana Özel Mesajın Var mı?</button>
-
-<button class="login-btn" onclick="showPasswordBox()">🔒 Giriş Yap</button>
-
-<!-- Giriş Yap Paneli -->
-<div class="password-box" id="passwordBox">
-    <input type="password" id="passwordInput" placeholder="Şifreyi Gir...">
-    <button class="heart-btn" onclick="checkPassword()">Giriş Yap</button>
+<!-- ROMANTİK MESAJ -->
+<div class="romantic-message">
+    "Seninle her gün bir mucize...  
+    Gözlerin kalbime dokunuyor,  
+    gülüşün içimi ısıtıyor.  
+    Her anımı seninle yaşamak istiyorum. ❤️"  
 </div>
 
-<div id="secretMessage">🌸 Eflal, kalbimde sonsuz bir yerin var. ❤️</div>
+<!-- GİRİŞ BUTONU -->
+<button class="login-btn" onclick="goToSecretPage()">❤️ Giriş Yap ❤️</button>
 
 <script>
-    function showSecretMessage() {
-        document.getElementById('secretMessage').style.display = 'block';
-    }
+    // Kalp ve Yıldız Yağmuru
+    setInterval(() => {
+        const element = document.createElement('div');
+        element.classList.add(Math.random() > 0.5 ? 'heart' : 'star');
+        element.innerText = Math.random() > 0.5 ? '❤️' : '✨';
+        element.style.left = Math.random() * 100 + 'vw';
+        element.style.animationDuration = Math.random() * 2 + 3 + 's';
+        document.body.appendChild(element);
+        setTimeout(() => element.remove(), 4000);
+    }, 300);
 
-    function showPasswordBox() {
-        document.getElementById('passwordBox').style.display = 'block';
-    }
-
-    function checkPassword() {
-        const password = document.getElementById('passwordInput').value;
-        if (password === 'eflal') {
-            alert("🌸 Hoş geldin Eflal! ❤️");
-            window.location.href = 'ozel.html';
-        } else {
-            alert("Yanlış şifre! ❤️");
-        }
+    // Sayfaya Yönlendirme
+    function goToSecretPage() {
+        window.location.href = "ozel.html";
     }
 </script>
 
