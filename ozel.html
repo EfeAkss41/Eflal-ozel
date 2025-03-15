@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sana Özel ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffdde1;
+            color: #ff4d4d;
+            text-align: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('https://source.unsplash.com/1600x900/?romantic');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #ff4d4d;
+            font-family: 'Parisienne', cursive;
+            text-shadow: 0 0 15px #ff1a1a;
+            animation: glow 2s infinite alternate;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 15px #ff1a1a; }
+            to { text-shadow: 0 0 30px #ff4d4d; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .message {
+            font-size: 1.8em;
+            color: #ff4d4d;
+            background-color: rgba(255, 244, 244, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            backdrop-filter: blur(5px);
+            width: 80%;
+            max-width: 600px;
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            border: 2px solid #ff4d4d;
+            margin-top: 10px;
+        }
+
+        .signature {
+            font-family: 'Parisienne', cursive;
+            font-size: 2em;
+            margin-top: 20px;
+            color: #ff4d4d;
+            opacity: 0;
+            animation: fadeIn 2.5s ease-in-out forwards;
+        }
+
+        /* Kalp Yağmuru */
+        .heart {
+            position: absolute;
+            color: #ff4d4d;
+            font-size: 20px;
+            animation: fall 4s linear;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100px) scale(0.8);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Typewriter Efekti */
+        .typewriter::after {
+            content: "|";
+            display: inline-block;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Mobil Uyum */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .message { font-size: 1.4em; padding: 15px; }
+            .signature { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+
+<h1 class="typewriter">Sen Benim İçin Bir Mucizesin ❤️</h1>
+<div class="message">
+    Hayatımda olduğun için çok şanslıyım.  
+    Gülüşünle dünyam aydınlanıyor,  
+    Varlığın kalbimi huzurla dolduruyor.  
+    Seninle her şey daha güzel.  
+    Sonsuza kadar seninle olmak istiyorum.  
+</div>
+
+<div class="signature">
+    💖 Seni sonsuz seviyorum... 💖
+</div>
+
+<!-- Kalp Yağmuru -->
+<script>
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // Farklı hızlarda düşsün
+        heart.style.fontSize = Math.random() * 20 + 20 + 'px'; // Farklı boyutlarda kalp
+        heart.style.zIndex = '-1';
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(createHeart, 200);
+
+    // Typewriter efekti (h1 yazısını yavaşça yazdıracak)
+    const text = "Sen Benim İçin Bir Mucizesin ❤️";
+    let i = 0;
+    const header = document.querySelector('.typewriter');
+
+    function typeWriter() {
+        if (i < text.length) {
+            header.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+
+    window.onload = () => {
+        header.innerHTML = "";
+        typeWriter();
+    };
+</script>
+
+</body>
+</html>
