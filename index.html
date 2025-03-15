@@ -61,14 +61,8 @@
         }
 
         @keyframes pop {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(3);
-                opacity: 0;
-            }
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
         }
 
         /* Düşen Yıldız Efekti */
@@ -121,6 +115,32 @@
             font-weight: bold;
         }
 
+        /* Fotoğraf Galerisi */
+        .photo-gallery {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .photo-gallery img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
         /* Mobil Uyum */
         @media (max-width: 768px) {
             h1 {
@@ -132,6 +152,10 @@
             }
             #specialMessage {
                 font-size: 1em;
+            }
+            .photo-gallery img {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -146,6 +170,15 @@
     <!-- Özel Mesaj Kutusu -->
     <div id="specialMessage">
         Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖. Bu hikâyenin başrolünü benimle paylaşır mısın? 🥰✨
+    </div>
+
+    <!-- Fotoğraf Galerisi -->
+    <div id="photoGallery" class="photo-gallery" style="display:none;">
+        <img src="https://source.unsplash.com/150x150/?love" alt="Love 1">
+        <img src="https://source.unsplash.com/150x150/?heart" alt="Love 2">
+        <img src="https://source.unsplash.com/150x150/?flower" alt="Love 3">
+        <img src="https://source.unsplash.com/150x150/?couple" alt="Love 4">
+        <img src="https://source.unsplash.com/150x150/?romantic" alt="Love 5">
     </div>
 
     <!-- Kalp Butonu -->
@@ -167,6 +200,11 @@
             // Özel Mesajı Göster
             const specialMessage = document.getElementById('specialMessage');
             specialMessage.style.display = 'block';
+
+            // Fotoğraf Galerisini Göster
+            const gallery = document.getElementById('photoGallery');
+            gallery.style.display = 'flex';
+            gallery.style.opacity = '1';
         }
 
         // ⭐ Düşen Yıldız Efekti
@@ -183,28 +221,11 @@
         // ⏰ Saat
         function updateClock() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+            const time = now.toLocaleTimeString();
+            document.getElementById('clock').innerText = time;
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        // 🎨 Dinamik Arkaplan Geçişi
-        function changeBackground() {
-            const hour = new Date().getHours();
-            if (hour >= 6 && hour < 18) {
-                document.body.style.backgroundColor = '#ffd6e0'; // Gündüz
-                document.body.style.color = '#ff4d4d';
-            } else {
-                document.body.style.backgroundColor = '#2c2c2c'; // Gece
-                document.body.style.color = '#f5f5f5';
-            }
-        }
-        setInterval(changeBackground, 1000);
-        changeBackground();
-
     </script>
 </body>
 </html>
