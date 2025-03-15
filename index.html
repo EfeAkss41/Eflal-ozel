@@ -9,7 +9,6 @@
 
         body {
             font-family: 'Parisienne', cursive;
-            background-color: #ffeff5;
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,25 +19,18 @@
             color: #ff4d4d;
             text-align: center;
             overflow: hidden;
-            background-image: url('https://source.unsplash.com/1600x900/?love');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(5px);
-            box-sizing: border-box;
+            transition: background-color 1s ease;
+            background-color: #ffd6e0;
         }
+
         h1 {
             font-size: 3em;
-            color: #ff1a1a;
-            text-shadow: 0 0 15px #ff4d4d;
-            animation: shine 2s infinite alternate;
+            color: #ff4d4d;
+            text-shadow: 0 0 15px #ff1a1a;
             letter-spacing: 2px;
         }
-        @keyframes shine {
-            from { text-shadow: 0 0 15px #ff1a1a; }
-            to { text-shadow: 0 0 30px #ff6666; }
-        }
-        .heart-btn, .control-btn {
-            margin-top: 15px;
+
+        .heart-btn {
             padding: 12px 25px;
             background-color: #ff4d4d;
             color: white;
@@ -48,158 +40,171 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            margin-right: 5px;
+            margin-top: 15px;
         }
-        .heart-btn:hover, .control-btn:hover {
+
+        .heart-btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
         }
-        .hidden-heart-message {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #ffdee3;
-            color: #ff1a1a;
-            border-radius: 10px;
-            display: none;
-            font-size: 1.2em;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            animation: heart-pulse 1s ease infinite alternate;
-            max-width: 90%;
-            line-height: 1.4;
-        }
-        @keyframes heart-pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
-        .star-effect {
+
+        /* Kalp Animasyonu */
+        .heart {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background-color: #ffcccb;
-            box-shadow: 0 0 15px #ff6666;
-            animation: star-fall 2s linear infinite;
-        }
-        @keyframes star-fall {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(600px);
-                opacity: 1;
-            }
-        }
-        .hidden-gallery {
-            display: none;
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .hidden-gallery img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .hidden-gallery img:hover {
-            transform: scale(1.1);
-        }
-        .volume-control {
-            margin-top: 10px;
-            width: 150px;
-            accent-color: #ff4d4d;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+            background-size: cover;
+            animation: pop 1.5s forwards;
+            pointer-events: none;
+            z-index: 999;
         }
 
-        /* Mobil için özel düzenlemeler */
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Düşen Yıldız Efekti */
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: fall 2s linear forwards;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Özel Mesaj */
+        #specialMessage {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffe6ea;
+            color: #ff4d4d;
+            font-size: 1.2em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+            max-width: 80%;
+            text-align: center;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Saat */
+        #clock {
+            font-size: 2em;
+            margin-top: 10px;
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        /* Mobil Uyum */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2em;
             }
-            .heart-btn, .control-btn {
+            .heart-btn {
                 font-size: 0.9em;
                 padding: 10px 20px;
             }
-            .hidden-heart-message {
+            #specialMessage {
                 font-size: 1em;
-                padding: 12px;
-            }
-            .hidden-gallery img {
-                width: 80px;
-                height: 80px;
-            }
-            .volume-control {
-                width: 120px;
             }
         }
     </style>
 </head>
 <body>
+
     <h1>Eflal ❤️</h1>
 
+    <!-- Saat -->
+    <div id="clock"></div>
+
+    <!-- Özel Mesaj Kutusu -->
+    <div id="specialMessage">
+        Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖. Bu hikâyenin başrolünü benimle paylaşır mısın? 🥰✨
+    </div>
+
+    <!-- Kalp Butonu -->
     <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
-    <div id="heartMessage" class="hidden-heart-message">Eflal, kalbimin en güzel köşesinde hep sen varsın. Gülüşünle dünyam aydınlanıyor, varlığınla her şey anlam kazanıyor. Seni sonsuz seviyorum. ❤️</div>
-
-    <div id="gallery" class="hidden-gallery">
-        <img src="images/heart.jpg" alt="Heart" />
-        <img src="images/rose.jpg" alt="Rose" />
-        <img src="images/sunset.jpg" alt="Sunset" />
-    </div>
-
-    <audio id="bg-music" loop>
-        <source src="audio/music.mp3" type="audio/mpeg">
-        Tarayıcınız ses dosyasını desteklemiyor.
-    </audio>
-
-    <!-- Müzik Kontrol Butonları -->
-    <div>
-        <button class="control-btn" onclick="playMusic()">▶️ Başlat</button>
-        <button class="control-btn" onclick="pauseMusic()">⏸️ Durdur</button>
-        <input class="volume-control" type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
-    </div>
-
     <script>
-        const audio = document.getElementById('bg-music');
-
+        // ❤️ Kalp Animasyonu
         function showHeartMessage() {
-            const message = document.getElementById('heartMessage');
-            const gallery = document.getElementById('gallery');
-            message.style.display = 'block';
-            message.style.animation = 'heart-pulse 1s ease infinite alternate';
-            gallery.style.display = 'flex';
-        }
-
-        function playMusic() {
-            audio.play();
-        }
-
-        function pauseMusic() {
-            audio.pause();
-        }
-
-        function setVolume(value) {
-            audio.volume = value;
-        }
-
-        function createStars() {
             for (let i = 0; i < 20; i++) {
-                let star = document.createElement('div');
-                star.classList.add('star-effect');
-                star.style.left = `${Math.random() * 100}vw`;
-                star.style.animationDuration = `${Math.random() * 2 + 1}s`;
-                document.body.appendChild(star);
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                document.body.appendChild(heart);
 
-                setTimeout(() => {
-                    star.remove();
-                }, 2000);
+                setTimeout(() => heart.remove(), 1500);
+            }
+
+            // Özel Mesajı Göster
+            const specialMessage = document.getElementById('specialMessage');
+            specialMessage.style.display = 'block';
+        }
+
+        // ⭐ Düşen Yıldız Efekti
+        function createFallingStar() {
+            let star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}vw`;
+            document.body.appendChild(star);
+
+            setTimeout(() => star.remove(), 2000);
+        }
+        setInterval(createFallingStar, 1000);
+
+        // ⏰ Saat
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 🎨 Dinamik Arkaplan Geçişi
+        function changeBackground() {
+            const hour = new Date().getHours();
+            if (hour >= 6 && hour < 18) {
+                document.body.style.backgroundColor = '#ffd6e0'; // Gündüz
+                document.body.style.color = '#ff4d4d';
+            } else {
+                document.body.style.backgroundColor = '#2c2c2c'; // Gece
+                document.body.style.color = '#f5f5f5';
             }
         }
+        setInterval(changeBackground, 1000);
+        changeBackground();
 
-        setInterval(createStars, 500);
     </script>
 </body>
 </html>
