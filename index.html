@@ -20,6 +20,7 @@
             text-align: center;
             background-color: #ffd6e0;
             overflow: hidden;
+            position: relative;
         }
 
         h1 {
@@ -29,27 +30,58 @@
             letter-spacing: 2px;
         }
 
-        /* Kalp Butonu */
-        .heart-btn {
-            padding: 12px 25px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1em;
+        /* Kilit İkonu */
+        .lock-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: #ff4d4d;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            margin-top: 15px;
+            transition: transform 0.2s ease;
         }
 
-        .heart-btn:hover {
+        .lock-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Şifre Kutusu */
+        .password-box {
+            display: none;
+            background-color: #ffe6ea;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .password-box input, .password-box button {
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ff4d4d;
+            outline: none;
+        }
+
+        .password-box button {
+            background-color: #ff4d4d;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .password-box button:hover {
             background-color: #ff1a1a;
-            transform: scale(1.05);
         }
 
         /* Özel Mesaj */
-        #specialMessage {
+        #specialMessage, #extraMessage {
             margin-top: 20px;
             padding: 15px;
             background-color: #ffe6ea;
@@ -95,61 +127,23 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
-        /* Şarkı Kontrolleri */
-        .music-controls {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #ffe6ea;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        .music-controls button {
+        /* Kalp Butonu */
+        .heart-btn {
+            padding: 12px 25px;
             background-color: #ff4d4d;
             color: white;
-            padding: 12px 25px;
             border: none;
             border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
             font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            width: 150px;
+            margin-top: 15px;
         }
 
-        .music-controls button:hover {
+        .heart-btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
-        }
-
-        progress {
-            width: 100%;
-            height: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #ffd6e0;
-            appearance: none;
-        }
-
-        progress::-webkit-progress-bar {
-            background-color: #ffd6e0;
-        }
-
-        progress::-webkit-progress-value {
-            background-color: #ff4d4d;
-            border-radius: 10px;
-            transition: width 0.2s ease;
-        }
-
-        #currentTime, #totalTime {
-            font-size: 1em;
-            color: #ff4d4d;
         }
 
         /* Mobil Uyum */
@@ -157,16 +151,12 @@
             h1 {
                 font-size: 2.2em;
             }
-            .heart-btn {
-                font-size: 0.9em;
-                padding: 10px 20px;
-            }
-            #specialMessage {
-                font-size: 1em;
-            }
             .photo-gallery img {
                 width: 100px;
                 height: 100px;
+            }
+            .password-box {
+                width: 90%;
             }
         }
     </style>
@@ -175,9 +165,26 @@
 
 <h1>Eflal ❤️</h1>
 
-<!-- Özel Mesaj -->
+<!-- Kilit İkonu -->
+<div class="lock-icon" onclick="showPasswordBox()">🔒</div>
+
+<!-- Şifre Kutusu -->
+<div id="passwordBox" class="password-box">
+    <p>Özel mesajı görmek için şifreyi gir:</p>
+    <input type="password" id="passwordInput" placeholder="Şifreyi gir..." />
+    <button onclick="checkPassword()">Giriş Yap</button>
+    <p id="passwordError" style="color: red; display: none;">Yanlış şifre!</p>
+</div>
+
+<!-- Kilit İle Açılan Özel Mesaj -->
 <div id="specialMessage">
-    Hayatımın en güzel sürprizi sensin 🌸. Kalbimdeki tatlı heyecan hep senin eserin 💖.
+    Kalbimde sana ait özel bir yer var 💕.<br>
+    Hayatı birlikte daha anlamlı kılalım mı? Ellerimi tutup benimle olur musun? 🌈🌟
+</div>
+
+<!-- Kalp Butonu İle Açılan Mesaj -->
+<div id="extraMessage">
+    Seninle her şey daha güzel 🌸. Gözlerindeki parıltı, kalbimde sonsuza kadar sürecek bir ateş yakıyor. 💖
 </div>
 
 <!-- Fotoğraf Galerisi -->
@@ -190,40 +197,32 @@
 <!-- Kalp Butonu -->
 <button class="heart-btn" onclick="showHeartMessage()">❤️ Sana Özel Bir Mesajım Var ❤️</button>
 
-<!-- Şarkı Kontrolleri -->
-<div class="music-controls">
-    <audio id="bgMusic" src="./audio/music.mp3" loop></audio>
-    <button onclick="playMusic()">▶️ Başlat</button>
-    <button onclick="pauseMusic()">⏸️ Durdur</button>
-    <progress id="songProgress" value="0" max="100"></progress>
-    <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
-</div>
-
 <script>
+    // Kilit İkonu - Şifre Kutusunu Açma
+    function showPasswordBox() {
+        document.getElementById('passwordBox').style.display = 'block';
+    }
+
+    // Şifre Kontrolü
+    function checkPassword() {
+        const password = document.getElementById('passwordInput').value;
+        if (password === "eflal") {
+            document.getElementById('specialMessage').style.display = 'block';
+            document.getElementById('photoGallery').style.opacity = '1';
+            document.getElementById('photoGallery').style.display = 'flex';
+            document.getElementById('passwordBox').style.display = 'none';
+        } else {
+            document.getElementById('passwordError').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('passwordError').style.display = 'none';
+            }, 2000);
+        }
+    }
+
+    // Kalp Butonuna Basınca Başka Mesaj
     function showHeartMessage() {
-        document.getElementById('specialMessage').style.display = 'block';
-        document.getElementById('photoGallery').style.opacity = '1';
-        document.getElementById('photoGallery').style.display = 'flex';
+        document.getElementById('extraMessage').style.display = 'block';
     }
-
-    function playMusic() {
-        bgMusic.play();
-        requestAnimationFrame(updateProgress);
-    }
-
-    function pauseMusic() {
-        bgMusic.pause();
-    }
-
-    function updateProgress() {
-        songProgress.value = (bgMusic.currentTime / bgMusic.duration) * 100;
-        currentTime.innerText = formatTime(bgMusic.currentTime);
-        requestAnimationFrame(updateProgress);
-    }
-
-    bgMusic.onloadedmetadata = () => {
-        totalTime.innerText = formatTime(bgMusic.duration);
-    };
 </script>
 
 </body>
