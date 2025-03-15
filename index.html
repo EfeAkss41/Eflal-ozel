@@ -197,7 +197,8 @@
         "Gülüşün kalbimi eriten bir güneş ışığı gibi 🌸",
         "Seninle geçen her an bir mucize 💖",
         "Gözlerin yıldızlar kadar parlak ✨",
-        "Varlığın kalbimde huzur yaratıyor 🍀"
+        "Varlığın kalbimde huzur yaratıyor 🍀",
+        "Sana olan sevgim okyanus kadar derin 🌊"
     ];
 
     function showPasswordBox() {
@@ -212,8 +213,13 @@
         }
     }
 
-    function playMusic() { bgMusic.play(); }
-    function pauseMusic() { bgMusic.pause(); }
+    function playMusic() { 
+        document.getElementById('bgMusic').play(); 
+    }
+
+    function pauseMusic() { 
+        document.getElementById('bgMusic').pause(); 
+    }
 
     function showHeartMessage() {
         const message = compliments[Math.floor(Math.random() * compliments.length)];
