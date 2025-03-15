@@ -8,6 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+        /* Genel Ayarlar */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #ffdde1;
@@ -24,18 +25,20 @@
             background-image: url('https://source.unsplash.com/1600x900/?romantic');
             background-size: cover;
             background-position: center;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
         h1 {
-            font-size: 3.5em;
+            font-size: 3.8em;
             color: #ff4d4d;
             font-family: 'Parisienne', cursive;
-            text-shadow: 0 0 15px #ff1a1a;
+            text-shadow: 0 0 20px #ff1a1a;
             animation: glow 2s infinite alternate;
             margin-bottom: 20px;
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
+            animation: fadeIn 1.5s ease-in-out forwards;
+            letter-spacing: 2px;
         }
 
         @keyframes glow {
@@ -49,21 +52,21 @@
         }
 
         .message {
-            font-size: 1.8em;
+            font-size: 1.6em;
             color: #ff4d4d;
-            background-color: rgba(255, 244, 244, 0.7);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            background-color: rgba(255, 244, 244, 0.8);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-            backdrop-filter: blur(5px);
+            animation: fadeIn 1.5s ease-in-out forwards;
             width: 80%;
             max-width: 600px;
-            line-height: 1.6;
+            line-height: 1.8;
             font-family: 'Poppins', sans-serif;
             border: 2px solid #ff4d4d;
             margin-top: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .signature {
@@ -72,7 +75,7 @@
             margin-top: 20px;
             color: #ff4d4d;
             opacity: 0;
-            animation: fadeIn 2.5s ease-in-out forwards;
+            animation: fadeIn 2s ease-in-out forwards;
         }
 
         /* Kalp Yağmuru */
@@ -80,8 +83,10 @@
             position: absolute;
             color: #ff4d4d;
             font-size: 20px;
-            animation: fall 4s linear;
             opacity: 0.7;
+            animation: fall 4s linear;
+            z-index: -1;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
         @keyframes fall {
@@ -93,6 +98,24 @@
                 transform: translateY(100vh) scale(1.2);
                 opacity: 0;
             }
+        }
+
+        /* Yıldız Efekti */
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 3s linear infinite;
+            z-index: -2;
+        }
+
+        @keyframes twinkle {
+            0% { transform: scale(0.5); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.5); opacity: 0.5; }
         }
 
         /* Typewriter Efekti */
@@ -111,44 +134,56 @@
         /* Mobil Uyum */
         @media (max-width: 768px) {
             h1 { font-size: 2.5em; }
-            .message { font-size: 1.4em; padding: 15px; }
-            .signature { font-size: 1.6em; }
+            .message { font-size: 1.2em; padding: 15px; }
+            .signature { font-size: 1.5em; }
         }
     </style>
 </head>
 <body>
 
 <h1 class="typewriter">Sen Benim İçin Bir Mucizesin ❤️</h1>
+
 <div class="message">
-    Hayatımda olduğun için çok şanslıyım.  
-    Gülüşünle dünyam aydınlanıyor,  
-    Varlığın kalbimi huzurla dolduruyor.  
-    Seninle her şey daha güzel.  
-    Sonsuza kadar seninle olmak istiyorum.  
+    Kalbimde hep senin için özel bir yer var.  
+    Gözlerin yıldızlar kadar parlak,  
+    Gülüşün içimi ısıtan bir güneş gibi.  
+    Varlığın bana huzur ve mutluluk veriyor.  
+    Seninle geçen her an bir mucize.  
 </div>
 
 <div class="signature">
     💖 Seni sonsuz seviyorum... 💖
 </div>
 
-<!-- Kalp Yağmuru -->
+<!-- Kalp ve Yıldız Yağmuru -->
 <script>
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         heart.innerHTML = '❤️';
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // Farklı hızlarda düşsün
-        heart.style.fontSize = Math.random() * 20 + 20 + 'px'; // Farklı boyutlarda kalp
-        heart.style.zIndex = '-1';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's'; 
+        heart.style.fontSize = Math.random() * 20 + 20 + 'px';
         document.body.appendChild(heart);
 
         setTimeout(() => heart.remove(), 4000);
     }
 
-    setInterval(createHeart, 200);
+    function createStar() {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDuration = Math.random() * 5 + 2 + 's';
+        document.body.appendChild(star);
 
-    // Typewriter efekti (h1 yazısını yavaşça yazdıracak)
+        setTimeout(() => star.remove(), 4000);
+    }
+
+    setInterval(createHeart, 200); // Kalpler sürekli düşecek
+    setInterval(createStar, 300); // Yıldızlar sürekli parlayacak
+
+    // Typewriter Efekti
     const text = "Sen Benim İçin Bir Mucizesin ❤️";
     let i = 0;
     const header = document.querySelector('.typewriter');
