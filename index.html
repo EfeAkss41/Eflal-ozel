@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eflal ❤️</title>
+    
+    <!-- ✅ Fontlar -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-        /* GENEL AYARLAR */
+        /* ✅ GENEL AYARLAR */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -26,6 +28,7 @@
             overflow: hidden;
             position: relative;
             transition: background-color 0.5s ease;
+            opacity: 1;
         }
 
         @keyframes gradientBG {
@@ -34,7 +37,32 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* BAŞLIK */
+        /* ✅ KARŞILAMA EKRANI */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 117, 140, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 3em;
+            z-index: 9999;
+            font-family: 'Parisienne', cursive;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            opacity: 1;
+            transition: opacity 1.5s ease;
+        }
+
+        .welcome-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ✅ BAŞLIK */
         h1 {
             font-size: 4em;
             color: #ff4d4d;
@@ -51,7 +79,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TARİH VE SAAT */
+        /* ✅ TARİH VE SAAT */
         #dateTime {
             font-size: 1.5em;
             color: #ff4d4d;
@@ -64,7 +92,7 @@
             transition: background-color 0.5s ease;
         }
 
-        /* ROMANTİK MESAJ */
+        /* ✅ ROMANTİK MESAJ */
         .romantic-message {
             font-size: 1.8em;
             color: #ff4d4d;
@@ -88,8 +116,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* BUTONLAR */
-        .login-btn, .message-btn {
+        /* ✅ BUTONLAR */
+        .btn {
             padding: 14px 40px;
             background-color: #ff4d4d;
             color: white;
@@ -102,108 +130,63 @@
             margin-top: 15px;
         }
 
-        .login-btn:hover, .message-btn:hover {
+        .btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
-        }
-
-        /* ŞİFRE KUTUSU */
-        .password-box {
-            display: none;
-            opacity: 0;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 100;
-            transition: opacity 0.4s ease;
-        }
-
-        .password-box.show {
-            display: block;
-            opacity: 1;
-        }
-
-        input[type="password"] {
-            padding: 12px;
-            width: 250px;
-            border: 2px solid #ff4d4d;
-            border-radius: 30px;
-            outline: none;
-            font-size: 1em;
-            color: #ff4d4d;
-            background-color: #fff;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        /* HATA MESAJI */
-        .error-message {
-            color: #ff1a1a;
-            margin-top: 10px;
-            font-size: 1.1em;
-            display: none;
-            animation: shake 0.3s ease;
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(-10px); }
-            25% { transform: translateX(10px); }
-            50% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-            100% { transform: translateX(0); }
         }
     </style>
 </head>
 <body>
 
+<!-- ✅ Karşılama Ekranı -->
+<div class="welcome-screen" id="welcomeScreen">
+    ❤️ Hoş Geldin Eflal! ❤️
+</div>
+
+<!-- ✅ Başlık -->
 <h1>❤️ Eflal ❤️</h1>
 
-<!-- TARİH VE SAAT -->
+<!-- ✅ Tarih ve Saat -->
 <div id="dateTime">Yükleniyor...</div>
 
+<!-- ✅ Romantik Mesaj -->
 <div class="romantic-message">
     "Seninle her an bir mucize... ❤️"
 </div>
 
-<!-- GİRİŞ TUŞU -->
-<button class="login-btn" onclick="askForPassword()">❤️ Giriş Yap ❤️</button>
-
-<!-- SÜRPRİZ MESAJ TUŞU -->
-<button class="message-btn" onclick="showSurpriseMessage()">💌 Sürpriz Mesaj 💌</button>
-
-<!-- ŞİFRE KUTUSU -->
-<div class="password-box" id="passwordBox">
-    <input type="password" id="passwordInput" placeholder="Şifreyi Gir">
-    <button class="login-btn" onclick="checkPassword()">✔️ Onayla</button>
-    <div class="error-message" id="errorMessage">❌ Yanlış şifre!</div>
-</div>
+<!-- ✅ Butonlar -->
+<button class="btn" onclick="askForPassword()">❤️ Giriş Yap ❤️</button>
+<button class="btn" onclick="showSurpriseMessage()">💌 Sürpriz Mesaj 💌</button>
 
 <script>
-    function askForPassword() {
-        document.getElementById('passwordBox').classList.add('show');
-    }
+    // ✅ Karşılama Ekranını Kapatma
+    window.onload = () => {
+        setTimeout(() => {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            welcomeScreen.classList.add('fade-out');
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+            }, 1000); // Geçiş süresi 1 saniye
+        }, 2000); // Karşılama ekranı 2 saniye görünecek
+    };
 
-    function checkPassword() {
-        if (document.getElementById('passwordInput').value === "eflal") {
+    // ✅ Şifre Sorma
+    function askForPassword() {
+        const password = prompt("💖 Şifreyi Girin:");
+        if (password === "eflal") {
             window.location.href = "ozel.html";
         } else {
-            document.getElementById('errorMessage').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('errorMessage').style.display = 'none';
-            }, 2000);
+            alert("❌ Yanlış şifre! Lütfen tekrar deneyin.");
         }
     }
 
+    // ✅ Sürpriz Mesaj
     function showSurpriseMessage() {
         alert("❤️ Kalbimde hep sen varsın! ❤️");
     }
 
+    // ✅ Tarih ve Saat Güncelleme
     function updateDateTime() {
         const now = new Date();
         document.getElementById('dateTime').innerText = now.toLocaleString();
