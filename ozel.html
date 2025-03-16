@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>❤️ Sadece Sana Özel ❤️</title>
+    
+    <!-- ✅ CSP Güncellemesi -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@400;600&display=swap');
 
@@ -33,7 +37,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* HOŞ GELDİN MESAJI */
         h1 {
             font-size: 3.5em;
             color: #ff1a1a;
@@ -41,7 +44,7 @@
             text-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
             animation: fadeIn 1.5s ease forwards, glow 1.5s infinite alternate;
             opacity: 0;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -55,22 +58,28 @@
             to { text-shadow: 0 0 40px #ff1a1a; }
         }
 
-        /* MESAJ ALANI */
-        .special-message {
-            font-size: 1.8em;
+        /* ✅ Ortaya Romantik Yazı */
+        .romantic-message {
+            font-size: 2.2em;
             color: #ff4d4d;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.5);
             padding: 20px;
             border-radius: 20px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             line-height: 1.6;
-            opacity: 0;
-            animation: fadeInMessage 2s ease forwards;
+            animation: fadeInMessage 1.5s ease forwards;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
             border: 2px solid #ff4d4d;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-            z-index: 10;
+            text-shadow: 0 0 20px rgba(255, 77, 77, 0.8), 0 0 40px rgba(255, 100, 100, 0.6);
+            font-family: 'Parisienne', cursive;
+            max-width: 90%;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .romantic-message:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(255, 77, 77, 0.8), 0 4px 30px rgba(255, 100, 100, 0.6);
         }
 
         @keyframes fadeInMessage {
@@ -78,8 +87,36 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* BUTONLAR */
-        .return-btn, .extra-message-btn, .letter-btn {
+        /* ✅ Popup Mesaj */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+            font-size: 1.8em;
+            color: #ff1a1a;
+            border: 2px solid #ff758c;
+            width: 90%;
+            max-width: 600px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .popup {
+                font-size: 1.5em;
+                padding: 20px;
+            }
+        }
+
+         /* ✅ Buton Tasarımı */
+         .extra-message-btn, .letter-btn, .video-btn, .return-btn {
             padding: 14px 40px;
             background-color: #ff4d4d;
             color: white;
@@ -95,27 +132,10 @@
             position: relative;
         }
 
-        .return-btn:hover, .extra-message-btn:hover, .letter-btn:hover {
+        .extra-message-btn:hover, .letter-btn:hover, .video-btn:hover, .return-btn:hover {
             background-color: #ff1a1a;
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 50%;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            background-color: #ff1a1a;
         }
     </style>
 </head>
@@ -123,57 +143,70 @@
 
 <h1>❤️ Eflal, Sadece Sana Özel ❤️</h1>
 
-<div class="special-message">
-    Kalbimde sana ait özel bir yer var 💕. Hayatı birlikte daha anlamlı kılalım mı? 🌈🌟
+<!-- ✅ Ortaya Romantik Yazı -->
+<div class="romantic-message">
+    Hayatımın en güzel yanı seninle olmak 💖.  
+    Gözlerine baktığımda tüm dünyam aydınlanıyor 🌹.  
+    Kalbim hep seninle, sonsuza kadar 💫.  
 </div>
 
-<!-- BUTONLAR -->
-<button id="return-btn" class="return-btn">⬅️ Geri Dön</button>
-<button id="extra-message-btn" class="extra-message-btn">💌 Sürpriz Mesaj 💌</button>
-<button id="letter-btn" class="letter-btn">💖 Mektubu Aç 💖</button>
+<!-- ✅ Butonlar -->
+<button onclick="goBack()" class="return-btn">⬅️ Geri Dön</button>
+<button onclick="showExtraMessage(event)" class="extra-message-btn">💌 Sürpriz Mesaj 💌</button>
+<button onclick="showLetter(event)" class="letter-btn">💖 Mektubu Aç 💖</button>
+<button onclick="openVideo()" class="video-btn">🎬 Videoyu Oynat</button>
 
-<!-- LOVE LETTER -->
-<div id="letter" class="special-message" style="display: none;">
-    Sevgili Eflal,  
-    Hayatımda güzel bir heyecan varsa sebebi sensin 🌸.   
-    Seni tanıdıkça her günüm anlam kazanıyor ve aklımda hep sen varsın.  
-    Bu duygularımı artık saklamak yerine seninle paylaşmak istiyorum;  
-    benimle birlikte bu güzel hikâyeyi yazmaya var mısın? 💖✨  
-    <button class="close-btn" id="close-btn">✖️</button>
-</div>
+<!-- ✅ Popup Mesaj -->
+<div id="popupMessage" class="popup"></div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // ✅ Butonlar için event listener ekle
-        document.getElementById("return-btn").addEventListener("click", goBack);
-        document.getElementById("extra-message-btn").addEventListener("click", showExtraMessage);
-        document.getElementById("letter-btn").addEventListener("click", showLetter);
-        document.getElementById("close-btn").addEventListener("click", closeLetter);
-    });
+    // ✅ Popup Mesaj Gösterme
+    function showMessage(message) {
+        const popup = document.getElementById('popupMessage');
+        popup.innerHTML = message;
+        popup.style.display = 'block';
 
+        // ✅ Popup kapanma event'ini temizle
+        document.removeEventListener('click', closePopup);
+
+        // ✅ Popup dışında bir yere tıklayınca kapanacak şekilde ayarla
+        setTimeout(() => {
+            document.addEventListener('click', closePopup);
+        }, 50);
+    }
+
+    // ✅ Popup Kapatma
+    function closePopup(event) {
+        const popup = document.getElementById('popupMessage');
+        if (!popup.contains(event.target)) {
+            popup.style.display = 'none';
+            document.removeEventListener('click', closePopup);
+        }
+    }
+
+    // ✅ Video Linkini Tanımla (YouTube veya Vimeo)
+    const videoLink = "https://youtu.be/Oh3MQL7w1sM"; 
+
+    // ✅ Videoyu Yeni Sekmede Açma Fonksiyonu
+    function openVideo() {
+        window.open(videoLink, '_blank');
+    }
+
+    // ✅ Geri Dön Tuşu
     function goBack() {
         window.location.href = "index.html";
     }
 
-    const messages = [
-        "❤️ Sen benim için bir mucizesin!",
-        "✨ Gülüşün kalbimi aydınlatıyor!",
-        "💖 Her an seninle bir mucize!",
-        "🌹 Varlığın kalbimi ısıtıyor!",
-        "🌸 Seninle geçen her an bir hediye!"
-    ];
-
-    function showExtraMessage() {
-        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        alert(randomMessage);
+    // ✅ Sürpriz Mesaj Butonu için Mesaj
+    function showExtraMessage(event) {
+        event.stopPropagation(); // 🔥 Çakışmayı önlemek için eklendi
+        showMessage("Bugün seni şaşırtmak istedim çünkü aklımdan hiç çıkmıyorsun 🌸. Belki beklemiyordun ama hayatımın en tatlı sürprizi sensin. Umarım yüzündeki o güzel gülümsemenin sebebi olabilirim 💖✨.");
     }
 
-    function showLetter() {
-        document.getElementById("letter").style.display = "block";
-    }
-
-    function closeLetter() {
-        document.getElementById("letter").style.display = "none";
+    // ✅ Mektup Mesajı için Mesaj
+    function showLetter(event) {
+        event.stopPropagation(); // 🔥 Çakışmayı önlemek için eklendi
+        showMessage("Merhaba güzel kalpli,Bu küçük mektup sana özel hazırlandı 🌸. Kelimelerin yetmediği yerde, sana olan duygularımı böyle tatlı yollarla anlatmak istedim. Umarım kalbine dokunabilirim. Çünkü sen, kalbimde hep özelsin. 💖✨");
     }
 </script>
 
