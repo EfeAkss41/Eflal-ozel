@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eflal'a Özel ❤️</title>
+    <title>❤️ Sadece Sana Özel ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@400;600&display=swap');
 
         /* GENEL AYARLAR */
         body {
@@ -25,7 +24,7 @@
             animation: gradientBG 6s ease infinite;
             overflow: hidden;
             position: relative;
-            backdrop-filter: blur(10px);
+            transition: background-color 0.5s ease;
         }
 
         @keyframes gradientBG {
@@ -34,15 +33,16 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* BAŞLIK */
+        /* HOŞ GELDİN MESAJI */
         h1 {
-            font-size: 4.5em;
-            color: #ff4d4d;
+            font-size: 3.5em;
+            color: #ff1a1a;
             font-family: 'Parisienne', cursive;
-            text-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
-            animation: fadeIn 1.5s ease forwards, heartbeat 1.5s infinite;
-            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            animation: fadeIn 1.5s ease forwards, glow 1.5s infinite alternate;
             opacity: 0;
+            margin-bottom: 10px;
+            position: relative;
         }
 
         @keyframes fadeIn {
@@ -50,30 +50,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ff4d4d; }
+            to { text-shadow: 0 0 40px #ff1a1a; }
         }
 
-        /* AÇILMA MESAJI */
-        .confession {
+        /* MESAJ ALANI */
+        .special-message {
             font-size: 1.8em;
             color: #ff4d4d;
-            font-family: 'Poppins', sans-serif;
-            margin-top: 30px;
-            max-width: 700px;
-            opacity: 0;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            text-align: center;
-            animation: fadeInMessage 2s ease forwards;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.4);
             padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             backdrop-filter: blur(5px);
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInMessage 2s ease forwards;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: 2px solid #ff4d4d;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            z-index: 10;
         }
 
         @keyframes fadeInMessage {
@@ -81,8 +78,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TEKLİF BUTONU */
-        .proposal-btn {
+        /* BUTONLAR */
+        .return-btn, .extra-message-btn, .letter-btn {
             padding: 14px 40px;
             background-color: #ff4d4d;
             color: white;
@@ -90,116 +87,94 @@
             border-radius: 30px;
             font-size: 1.4em;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
             transition: background-color 0.3s ease, transform 0.2s ease;
-            animation: pulse 1.5s infinite;
-            margin-top: 30px;
-            z-index: 10;
-            pointer-events: auto;
+            margin-top: 20px;
+            border: 2px solid #ff758c;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            z-index: 20;
+            position: relative;
         }
 
-        .proposal-btn:hover {
+        .return-btn:hover, .extra-message-btn:hover, .letter-btn:hover {
             background-color: #ff1a1a;
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 1em;
+            cursor: pointer;
         }
 
-        /* KABUL MESAJI */
-        .response-message {
-            font-size: 1.6em;
-            color: #ff4d4d;
-            font-family: 'Poppins', sans-serif;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            white-space: pre-wrap;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            line-height: 1.6;
-            max-width: 600px;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-            display: none;
-        }
-
-        /* === TELEFON (MOBİL) TASARIMI === */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.8em;
-            }
-
-            .confession {
-                font-size: 1.2em;
-                padding: 15px;
-                max-width: 90%;
-            }
-
-            .proposal-btn {
-                font-size: 1.1em;
-                padding: 12px 30px;
-            }
-
-            .response-message {
-                font-size: 1.2em;
-                padding: 15px;
-                max-width: 90%;
-            }
+        .close-btn:hover {
+            background-color: #ff1a1a;
         }
     </style>
 </head>
 <body>
 
-<h1>❤️ Eflal'a Özel ❤️</h1>
+<h1>❤️ Eflal, Sadece Sana Özel ❤️</h1>
 
-<div class="confession" id="confessionText"></div>
+<div class="special-message">
+    Kalbimde sana ait özel bir yer var 💕. Hayatı birlikte daha anlamlı kılalım mı? 🌈🌟
+</div>
 
-<button id="proposalButton" class="proposal-btn">❤️ Benimle Olur Musun? ❤️</button>
+<!-- BUTONLAR -->
+<button id="return-btn" class="return-btn">⬅️ Geri Dön</button>
+<button id="extra-message-btn" class="extra-message-btn">💌 Sürpriz Mesaj 💌</button>
+<button id="letter-btn" class="letter-btn">💖 Mektubu Aç 💖</button>
 
-<div class="response-message" id="responseMessage"></div>
-
-<audio id="bgMusic" loop>
-    <source src="perfect.mp3" type="audio/mp3">
-</audio>
+<!-- LOVE LETTER -->
+<div id="letter" class="special-message" style="display: none;">
+    Sevgili Eflal,  
+    Hayatımda güzel bir heyecan varsa sebebi sensin 🌸.   
+    Seni tanıdıkça her günüm anlam kazanıyor ve aklımda hep sen varsın.  
+    Bu duygularımı artık saklamak yerine seninle paylaşmak istiyorum;  
+    benimle birlikte bu güzel hikâyeyi yazmaya var mısın? 💖✨  
+    <button class="close-btn" id="close-btn">✖️</button>
+</div>
 
 <script>
-    const confessionText = `Eflal,  
-    Seninle her anım bir masal gibi...  
-    Gülüşün içimi ısıtıyor, bakışların ruhumu sarıyor.  
-    Kalbimdeki en özel yer hep sana ait.  
-    Hayatımın geri kalanında benimle olur musun? ❤️`;
-
-    let index = 0;
-
-    function typeConfession() {
-        if (index < confessionText.length) {
-            document.getElementById("confessionText").innerText += confessionText.charAt(index);
-            index++;
-            setTimeout(typeConfession, 40);
-        }
-    }
-
-    document.getElementById("proposalButton").addEventListener("click", () => {
-        const message = "❤️ Evet dediğini hayal ediyorum! ❤️\nO zaman ne duruyorsun? Git ve cevabını mutlu bir şekilde sevdiğine ilet! 😍";
-        const response = document.getElementById("responseMessage");
-        response.innerText = message;
-        response.style.opacity = 1;
-        response.style.display = "block";
+    document.addEventListener("DOMContentLoaded", () => {
+        // ✅ Butonlar için event listener ekle
+        document.getElementById("return-btn").addEventListener("click", goBack);
+        document.getElementById("extra-message-btn").addEventListener("click", showExtraMessage);
+        document.getElementById("letter-btn").addEventListener("click", showLetter);
+        document.getElementById("close-btn").addEventListener("click", closeLetter);
     });
 
-    window.onload = () => {
-        typeConfession();
-        document.getElementById("bgMusic").play();
-    };
+    function goBack() {
+        window.location.href = "index.html";
+    }
+
+    const messages = [
+        "❤️ Sen benim için bir mucizesin!",
+        "✨ Gülüşün kalbimi aydınlatıyor!",
+        "💖 Her an seninle bir mucize!",
+        "🌹 Varlığın kalbimi ısıtıyor!",
+        "🌸 Seninle geçen her an bir hediye!"
+    ];
+
+    function showExtraMessage() {
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        alert(randomMessage);
+    }
+
+    function showLetter() {
+        document.getElementById("letter").style.display = "block";
+    }
+
+    function closeLetter() {
+        document.getElementById("letter").style.display = "none";
+    }
 </script>
 
 </body>
