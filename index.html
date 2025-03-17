@@ -87,6 +87,58 @@
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
         }
 
+        /* ✅ FOTOĞRAFLAR */
+        .side-images {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .left-images {
+            left: 10px;
+        }
+
+        .right-images {
+            right: 10px;
+        }
+
+        .side-images img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #ff4d4d;
+        }
+
+        .side-images img:hover {
+            transform: scale(1.1);
+        }
+
+        /* ✅ MOBİL UYUM */
+        @media (max-width: 768px) {
+            .side-images img {
+                width: 60px;
+                height: 60px;
+            }
+            .welcome-message {
+                font-size: 1.8em;
+            }
+            .time-message {
+                font-size: 1.2em;
+            }
+            .btn {
+                font-size: 1em;
+                padding: 10px 30px;
+            }
+        }
+
         /* ✅ ŞİFRE KUTUSU */
         .password-box {
             display: none;
@@ -115,55 +167,12 @@
             outline: none;
             background-color: #fff;
         }
-
-        .error-message {
-            color: #ff1a1a;
-            margin-top: 10px;
-            font-size: 1.1em;
-            display: none;
-        }
-
-        /* ✅ FOTOĞRAFLAR */
-        .side-images {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 10;
-        }
-
-        .left-images {
-            left: 10px;
-        }
-
-        .right-images {
-            right: 10px;
-        }
-
-        .side-images img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-            border: 2px solid #ff4d4d;
-        }
-
-        .side-images img:hover {
-            transform: scale(1.1);
-        }
     </style>
 </head>
 <body>
 
-<!-- ✅ HOŞGELDİN MESAJI -->
 <h1 class="welcome-message">❤️ Hoş Geldin, Eflal! ❤️</h1>
 
-<!-- ✅ SAAT MESAJI -->
 <div class="time-message" id="timeMessage">Yükleniyor...</div>
 
 <!-- ✅ BUTON -->
@@ -186,27 +195,21 @@
 <div class="password-box" id="passwordBox">
     <input type="password" id="passwordInput" placeholder="Şifreyi Gir">
     <button class="btn" onclick="checkPassword()">✔️ Onayla</button>
-    <div class="error-message" id="errorMessage">❌ Yanlış şifre!</div>
 </div>
 
 <script>
     function askForPassword() {
         document.getElementById('passwordBox').style.display = 'block';
-        setTimeout(() => {
-            document.getElementById('passwordBox').style.opacity = 1;
-        }, 100);
     }
 
     function checkPassword() {
         if (document.getElementById('passwordInput').value === "eflal") {
             window.location.href = "ozel.html";
-        } else {
-            document.getElementById('errorMessage').style.display = 'block';
         }
     }
 
     window.onload = () => {
-        document.getElementById("timeMessage").innerText = "🌸 Gözlerin kadar güzel bir sabah, günaydın hanımefendi! 🌸";
+        document.getElementById("timeMessage").innerText = "🌸 Gözlerin kadar güzel bir sabah, günaydın Hanımefendi! 🌸";
     };
 </script>
 
