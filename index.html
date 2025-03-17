@@ -35,13 +35,14 @@
 
         /* ✅ HOŞGELDİN MESAJI */
         .welcome-message {
-            font-size: 2.5em;
+            font-size: 2.8em;
             color: #ff1a1a;
             font-family: 'Parisienne', cursive;
             text-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
             margin-bottom: 10px;
             opacity: 0;
             animation: fadeIn 1.5s ease forwards;
+            letter-spacing: 1px;
         }
 
         @keyframes fadeIn {
@@ -58,12 +59,17 @@
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             font-weight: 500;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 0.5s forwards;
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
             font-style: italic;
             letter-spacing: 0.5px;
+            opacity: 0;
+            animation: fadeInMessage 2s ease forwards;
+        }
+
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ✅ BUTON TASARIMI */
@@ -83,7 +89,7 @@
 
         .btn:hover {
             background-color: #ff1a1a;
-            transform: scale(1.1);
+            transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
         }
 
@@ -112,6 +118,21 @@
             transform: scale(1.1);
         }
 
+        /* ✅ KALP YAĞMURU */
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            color: red;
+            animation: fall 2.5s linear forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
         /* ✅ MOBİL UYUM */
         @media (max-width: 768px) {
             .photo-row img {
@@ -119,7 +140,7 @@
                 height: 70px;
             }
             .welcome-message {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             .time-message {
                 font-size: 1.2em;
@@ -129,35 +150,6 @@
                 padding: 10px 30px;
             }
         }
-
-        /* ✅ ŞİFRE KUTUSU */
-        .password-box {
-            display: none;
-            opacity: 0;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 100;
-            transition: opacity 0.4s ease;
-        }
-
-        input[type="password"] {
-            padding: 12px;
-            width: 250px;
-            border: 2px solid #ff4d4d;
-            border-radius: 30px;
-            font-size: 1em;
-            color: #ff4d4d;
-            text-align: center;
-            margin-bottom: 10px;
-            outline: none;
-            background-color: #fff;
-        }
     </style>
 </head>
 <body>
@@ -166,8 +158,9 @@
 
 <div class="time-message" id="timeMessage">Yükleniyor...</div>
 
-<!-- ✅ BUTON -->
-<button class="btn" onclick="askForPassword()">❤️ Giriş Yap ❤️</button>
+<!-- ✅ BUTONLAR -->
+<button class="btn" onclick="startHeartRain()">❤️ Kalp Yağmuru Başlat ❤️</button>
+<button class="btn" onclick="askForPassword()">🔒 Giriş Yap 🔒</button>
 
 <!-- ✅ ÜSTTEKİ FOTOĞRAFLAR -->
 <div class="photo-row">
@@ -184,35 +177,33 @@
 </div>
 
 <!-- ✅ ŞİFRE KUTUSU -->
-<div class="password-box" id="passwordBox">
-    <input type="password" id="passwordInput" placeholder="Şifreyi Gir">
-    <button class="btn" onclick="checkPassword()">✔️ Onayla</button>
-</div>
-
 <script>
-    // ✅ Şifre Kutusunu Aç
-    function askForPassword() {
-        const passwordBox = document.getElementById('passwordBox');
-        passwordBox.style.display = 'block';
-        setTimeout(() => {
-            passwordBox.style.opacity = 1;
-        }, 100);
+    function startHeartRain() {
+        for (let i = 0; i < 30; i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            heart.innerHTML = '❤️';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2500);
+        }
     }
 
-    // ✅ Şifre Kontrolü
-    function checkPassword() {
-        const password = document.getElementById('passwordInput').value;
+    // ✅ SAAT MESAJI
+    window.onload = () => {
+        document.getElementById("timeMessage").innerText = "🌸 Gözlerin kadar güzel bir gün, Merhabalar Hanımefendi! 🌸";
+    };
+
+    // ✅ ŞİFRE KONTROLÜ
+    function askForPassword() {
+        let password = prompt("Şifreyi Gir:");
         if (password === "1903") {
             window.location.href = "ozel.html";
         } else {
             alert("❌ Yanlış şifre!");
         }
     }
-
-    // ✅ Saat Mesajı
-    window.onload = () => {
-        document.getElementById("timeMessage").innerText = "🌸 Gözlerin kadar güzel bir gün, Merhabalar Hanımefendi! 🌸";
-    };
 </script>
 
 </body>
