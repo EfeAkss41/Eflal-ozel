@@ -108,12 +108,12 @@
             width: 250px;
             border: 2px solid #ff4d4d;
             border-radius: 30px;
-            outline: none;
             font-size: 1em;
             color: #ff4d4d;
-            background-color: #fff;
             text-align: center;
             margin-bottom: 10px;
+            outline: none;
+            background-color: #fff;
         }
 
         .error-message {
@@ -121,15 +121,40 @@
             margin-top: 10px;
             font-size: 1.1em;
             display: none;
-            animation: shake 0.3s ease;
         }
 
-        @keyframes shake {
-            0% { transform: translateX(-10px); }
-            25% { transform: translateX(10px); }
-            50% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-            100% { transform: translateX(0); }
+        /* ✅ FOTOĞRAFLAR */
+        .side-images {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .left-images {
+            left: 10px;
+        }
+
+        .right-images {
+            right: 10px;
+        }
+
+        .side-images img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #ff4d4d;
+        }
+
+        .side-images img:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -141,8 +166,21 @@
 <!-- ✅ SAAT MESAJI -->
 <div class="time-message" id="timeMessage">Yükleniyor...</div>
 
-<!-- ✅ GİRİŞ YAP BUTONU -->
+<!-- ✅ BUTON -->
 <button class="btn" onclick="askForPassword()">❤️ Giriş Yap ❤️</button>
+
+<!-- ✅ FOTOĞRAFLAR -->
+<div class="side-images left-images">
+    <img src="./images/photo1.jpg" alt="Romantic Image">
+    <img src="./images/photo2.jpg" alt="Romantic Image">
+    <img src="./images/photo3.jpg" alt="Romantic Image">
+</div>
+
+<div class="side-images right-images">
+    <img src="./images/photo4.jpg" alt="Romantic Image">
+    <img src="./images/photo5.jpg" alt="Romantic Image">
+    <img src="./images/photo6.jpg" alt="Romantic Image">
+</div>
 
 <!-- ✅ ŞİFRE KUTUSU -->
 <div class="password-box" id="passwordBox">
@@ -152,7 +190,6 @@
 </div>
 
 <script>
-    // ✅ Giriş Yap Butonu
     function askForPassword() {
         document.getElementById('passwordBox').style.display = 'block';
         setTimeout(() => {
@@ -165,28 +202,12 @@
             window.location.href = "ozel.html";
         } else {
             document.getElementById('errorMessage').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('errorMessage').style.display = 'none';
-            }, 2000);
         }
     }
 
-    // ✅ Romantik Saat Mesajı
-    function setTimeMessage() {
-        const hour = new Date().getHours();
-        let message = "";
-        if (hour >= 6 && hour < 12) {
-            message = "🌸 Gözlerin kadar güzel bir sabah, günaydın Hanımefendi! 🌸";
-        } else if (hour >= 12 && hour < 18) {
-            message = "✨ Gülüşün kadar sıcak bir akşam, iyi akşamlar Hanımefendi! ✨";
-        } else {
-            message = "🌙 Yıldızlar kadar parlak bir gece, iyi geceler Hanımefendi! 🌙";
-        }
-        document.getElementById("timeMessage").innerText = message;
-    }
-
-    // ✅ Sayfa Yüklendiğinde Saat Mesajını Güncelle
-    window.onload = setTimeMessage;
+    window.onload = () => {
+        document.getElementById("timeMessage").innerText = "🌸 Gözlerin kadar güzel bir sabah, günaydın hanımefendi! 🌸";
+    };
 </script>
 
 </body>
