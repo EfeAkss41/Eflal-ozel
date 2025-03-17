@@ -87,45 +87,36 @@
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
         }
 
-        /* ✅ FOTOĞRAFLAR */
-        .side-images {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+        /* ✅ FOTOĞRAF ALANI */
+        .photo-row {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 10;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
         }
 
-        .left-images {
-            left: 10px;
-        }
-
-        .right-images {
-            right: 10px;
-        }
-
-        .side-images img {
-            width: 80px;
-            height: 80px;
+        .photo-row img {
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
-            cursor: pointer;
             border: 2px solid #ff4d4d;
+            cursor: pointer;
         }
 
-        .side-images img:hover {
+        .photo-row img:hover {
             transform: scale(1.1);
         }
 
         /* ✅ MOBİL UYUM */
         @media (max-width: 768px) {
-            .side-images img {
-                width: 60px;
-                height: 60px;
+            .photo-row img {
+                width: 70px;
+                height: 70px;
             }
             .welcome-message {
                 font-size: 1.8em;
@@ -178,14 +169,15 @@
 <!-- ✅ BUTON -->
 <button class="btn" onclick="askForPassword()">❤️ Giriş Yap ❤️</button>
 
-<!-- ✅ FOTOĞRAFLAR -->
-<div class="side-images left-images">
+<!-- ✅ ÜSTTEKİ FOTOĞRAFLAR -->
+<div class="photo-row">
     <img src="./images/photo1.jpg" alt="Romantic Image">
     <img src="./images/photo2.jpg" alt="Romantic Image">
     <img src="./images/photo3.jpg" alt="Romantic Image">
 </div>
 
-<div class="side-images right-images">
+<!-- ✅ ALTTAKİ FOTOĞRAFLAR -->
+<div class="photo-row">
     <img src="./images/photo4.jpg" alt="Romantic Image">
     <img src="./images/photo5.jpg" alt="Romantic Image">
     <img src="./images/photo6.jpg" alt="Romantic Image">
