@@ -190,16 +190,26 @@
 </div>
 
 <script>
+    // ✅ Şifre Kutusunu Aç
     function askForPassword() {
-        document.getElementById('passwordBox').style.display = 'block';
+        const passwordBox = document.getElementById('passwordBox');
+        passwordBox.style.display = 'block';
+        setTimeout(() => {
+            passwordBox.style.opacity = 1;
+        }, 100);
     }
 
+    // ✅ Şifre Kontrolü
     function checkPassword() {
-        if (document.getElementById('passwordInput').value === "eflal") {
+        const password = document.getElementById('passwordInput').value;
+        if (password === "eflal") {
             window.location.href = "ozel.html";
+        } else {
+            alert("❌ Yanlış şifre!");
         }
     }
 
+    // ✅ Saat Mesajı
     window.onload = () => {
         document.getElementById("timeMessage").innerText = "🌸 Gözlerin kadar güzel bir sabah, günaydın Hanımefendi! 🌸";
     };
