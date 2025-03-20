@@ -24,7 +24,7 @@
             background: linear-gradient(120deg, #ff758c, #ff7eb3, #ffdde1);
             background-size: 300% 300%;
             animation: gradientBG 6s ease infinite;
-            overflow: hidden;
+            overflow-y: auto;
             position: relative;
             transition: background-color 0.5s ease;
             opacity: 1;
@@ -116,11 +116,6 @@
             border: 3px solid #ff1a1a;
         }
 
-        .romantic-message:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(255, 77, 77, 0.8), 0 4px 30px rgba(255, 100, 100, 0.6);
-        }
-
         @keyframes fadeInMessage {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -131,11 +126,16 @@
 
 <h1>❤️ ?, Sadece Sana Özel ❤️</h1>
 
-<!-- ✅ ORTADAKİ ROMANTİK YAZI -->
 <div class="romantic-message">
     Hayatımın en güzel yanı seninle olmak 💖  
     Gözlerine baktığımda tüm dünyam aydınlanıyor 🌹  
     Kalbim hep seninle, sonsuza kadar 💫  
+</div>
+
+<div class="romantic-message">
+    Her anımda seninle olmak en büyük mutluluk. ❤️  
+    Kalbimin en derin köşesinde hep sen varsın. 🌹  
+    Sonsuza kadar seninle olmak istiyorum. 💫  
 </div>
 
 <!-- ✅ BUTONLAR -->
@@ -143,29 +143,30 @@
 <button class="btn" onclick="showSurpriseMessage()">💌 Sürpriz Mesaj 💌</button>
 <button class="btn" onclick="showLoveLetter()">💖 Mektubu Aç 💖</button>
 <button class="btn" onclick="playVideo()">🎬 Videoyu Oynat</button>
+<button class="btn" onclick="openSurpriseSite()">💖 Sürprizi Gör 💖</button>
 
 <script>
-    // ✅ Sürpriz Mesajı Göster
+    function openSurpriseSite() {
+        window.open('surprise.html', '_blank');
+    }
+
     function showSurpriseMessage() {
-        alert("Bugün seni şaşırtmak istedim çünkü aklımdan hiç çıkmıyorsun 🌸. Belki beklemiyordun ama hayatımın en tatlı sürprizi sensin. Umarım yüzündeki o güzel gülümsemenin sebebi olabilirim 💖✨.");
+        alert("Seni her şeyden çok seviyorum! 💖✨");
     }
 
-    // ✅ Mektubu Göster
     function showLoveLetter() {
-        alert("Merhaba güzel kalpli , Bu küçük mektup sana özel hazırlandı 🌸. Kelimelerin yetmediği yerde, sana olan duygularımı böyle tatlı yollarla anlatmak istedim. Umarım kalbine dokunabilirim. Çünkü sen, kalbimde hep özelsin. 💖✨");
+        alert("Bu mektubu senin için yazdım. Kalbim sonsuza kadar seninle! 💌✨");
     }
 
-    // ✅ Video Oynat
     function playVideo() {
-        window.open("https://youtu.be/rPthIV16Bj0?list=PLBTw-hXyWXufZDv-jcN8jaT8j7H1uS6k3", "_blank");
+        window.open('https://www.youtube.com/watch?v=zJBpE31Xxks', '_blank');
     }
 
-    // ✅ Soru Göster
     function showQuestion() {
-        const answer = prompt("Bu siteyi yapan kişi hakkında ne düşünüyorsunuz? ❤️");
+        const answer = prompt("Bu site hakkında ne düşünüyorsun? 💖");
         if (answer) {
             localStorage.setItem('siteAnswer', answer);
-            alert("✅ Cevabınız kaydedildi!");
+            alert("Cevabın kaydedildi! 💖");
         }
     }
 </script>
