@@ -149,6 +149,35 @@
         .close-btn:hover {
             background-color: #ff1a1a;
         }
+
+        /* ✅ MOBİL UYUM */
+        @media (max-width: 768px) {
+            .welcome-message {
+                font-size: 1.8em;
+            }
+
+            .time-message {
+                font-size: 1.2em;
+                padding: 10px 20px;
+            }
+
+            .btn {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+
+            .info-btn {
+                font-size: 0.9em;
+                padding: 6px 12px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .modal-content {
+                padding: 15px;
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -162,7 +191,7 @@
 
 <div class="modal" id="infoModal">
     <div class="modal-content">
-        <p><strong>Site ismi neden Eflal?</strong><br>Eflal, yücelik, güzellik ve asaleti simgelerken; aynı zamanda cesaret ve koruyuculuğu da içinde barındıran özel bir anlam taşır. Bu isim, "cesaretin ve yüceliğin buluştuğu, güzelliği ve gücü bir araya getiren eşsiz bir diyar" anlamına gelir. Asalet ve cesaretin izinde yükselen bu dünya, dengeli ve etkileyici bir ruhu yansıtır. Bu yüzden, bu siteye Eflal ismi verilmiştir.</p>
+        <p><strong>Site ismi neden Eflal?</strong><br>Eflal, yücelik, güzellik ve asaleti simgelerken; aynı zamanda cesaret ve koruyuculuğu da içinde barındıran özel bir anlam taşır. Bu isim, "cesaretin ve yüceliğin buluştuğu, güzelliği ve gücü bir araya getiren eşsiz bir diyar" anlamına gelir. Asalet ve cesaretin izinde yükselen bu dünya, dengeli ve etkileyici bir ruhu yansıtır. Bu yüzden, bu siteye Eflal ismi verilmiştir. </p>
         <button class="close-btn" onclick="closeModal()">Kapat</button>
     </div>
 </div>
