@@ -84,6 +84,7 @@
             transition: background-color 0.3s ease;
             margin-top: 10px;
             box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
+            touch-action: manipulation;
         }
 
         .btn:hover {
@@ -104,6 +105,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             z-index: 99999;
+            touch-action: manipulation;
         }
 
         .info-btn:hover {
@@ -144,33 +146,11 @@
             cursor: pointer;
             border-radius: 20px;
             transition: background-color 0.3s ease;
+            touch-action: manipulation;
         }
 
         .close-btn:hover {
             background-color: #ff1a1a;
-        }
-
-        /* ✅ ŞİFRE MODAL */
-        #passwordModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 100001;
-            text-align: center;
-        }
-
-        #passwordModal input {
-            padding: 10px;
-            width: 80%;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
         }
     </style>
 </head>
@@ -180,24 +160,33 @@
 
 <div class="time-message" id="timeMessage">🌸 Gözlerin kadar güzel bir gün, Merhabalar Hanımefendi! 🌸</div>
 
-<button class="btn" onclick="openPasswordModal()">🔒 Giriş Yap 🔒</button>
-<button class="info-btn" onclick="openModal()">ℹ️ Bilgi</button>
+<button class="btn" id="loginBtn">🔒 Giriş Yap 🔒</button>
+<button class="info-btn" id="infoBtn">ℹ️ Bilgi</button>
 
 <div class="modal" id="infoModal">
     <div class="modal-content">
         <p><strong>Site ismi neden Eflal?</strong><br>Eflal, yücelik, güzellik ve asaleti simgelerken; aynı zamanda cesaret ve koruyuculuğu da içinde barındıran özel bir anlam taşır. Bu isim, "cesaretin ve yüceliğin buluştuğu, güzelliği ve gücü bir araya getiren eşsiz bir diyar" anlamına gelir. Asalet ve cesaretin izinde yükselen bu dünya, dengeli ve etkileyici bir ruhu yansıtır. Bu yüzden, bu siteye Eflal ismi verilmiştir.</p>
-        <button class="close-btn" onclick="closeModal()">Kapat</button>
+        <button class="close-btn" id="closeInfo">Kapat</button>
     </div>
 </div>
 
 <script>
-    function openModal() {
-        document.getElementById('infoModal').style.display = 'flex';
-    }
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const password = prompt("Şifreyi Gir:");
+        if (password === "1903") {
+            window.location.href = "ozel.html";
+        } else {
+            alert("❌ Yanlış şifre!");
+        }
+    });
 
-    function closeModal() {
+    document.getElementById('infoBtn').addEventListener('click', () => {
+        document.getElementById('infoModal').style.display = 'flex';
+    });
+
+    document.getElementById('closeInfo').addEventListener('click', () => {
         document.getElementById('infoModal').style.display = 'none';
-    }
+    });
 </script>
 
 </body>
