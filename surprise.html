@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sürpriz!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sürpriz 💖</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #ffebf0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: url('surprise-background.jpg') no-repeat center center/cover;
             overflow: hidden;
-            color: #ff4d6d;
+            color: #fff;
+            position: relative;
+            animation: backgroundTransition 10s infinite alternate;
+        }
+
+        @keyframes backgroundTransition {
+            from {
+                filter: brightness(1) contrast(1);
+            }
+            to {
+                filter: brightness(1.2) contrast(1.1);
+            }
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
         }
 
         .container {
+            position: relative;
+            z-index: 2;
             text-align: center;
             animation: fadeIn 2s ease;
         }
@@ -25,65 +49,172 @@
         h1 {
             font-size: 3rem;
             margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff4d6d, #ff1e4d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s ease infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff4d6d;
+            }
+            to {
+                text-shadow: 0 0 20px #ff1e4d;
+            }
         }
 
         p {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
         }
 
-        .heart {
-            font-size: 4rem;
-            animation: heartbeat 1.5s infinite;
-            color: #ff4d6d;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        button {
+        .btn {
             background-color: #ff4d6d;
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
+            padding: 12px 30px;
+            font-size: 18px;
             border-radius: 30px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            animation: pulse 1.5s infinite;
+            outline: none;
         }
 
-        button:hover {
-            background-color: #ff1e4b;
+        .btn:hover {
+            background-color: #ff1e4d;
+            transform: scale(1.1);
+            box-shadow: 0px 6px 20px rgba(255, 78, 109, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden-message {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease, transform 0.5s ease;
+            margin-top: 30px;
+            font-size: 1.6rem;
+            transform: translateY(20px) scale(0.9);
+        }
+
+        .visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .heart-animation {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff4d6d, #ff1e4d);
+            clip-path: polygon(50% 0%, 100% 35%, 70% 100%, 50% 75%, 30% 100%, 0% 35%);
+            animation: floatUp 3s linear infinite;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 10px #ff4d6d);
+            transform-origin: center;
+            transform: rotate3d(1, 1, 0, 45deg);
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) scale(0.5) rotate3d(1, 1, 0, 0deg);
+                opacity: 0.7;
+            }
+            to {
+                transform: translateY(-600px) scale(1) rotate3d(1, 1, 0, 360deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 14px;
+            background-color: hsl(var(--hue), 90%, 60%);
+            opacity: 0.8;
+            animation: fall 2s ease-out forwards;
+            filter: drop-shadow(0 0 5px #fff);
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="heart">❤️</div>
-        <h1>Sana Bir Sürprizim Var!</h1>
-        <p>Sen benim hayatımın en güzel parçasısın. Bu siteyi sadece senin için hazırladım. Umarım seni mutlu eder. ❤️</p>
-        <button onclick="showMessage()">Beni Ne Kadar Sevdiğimi Gör!</button>
-    </div>
+<div class="overlay"></div>
+<div class="container">
+    <h1 class="fade-in">Sana Bir Sürprizim Var! 💖</h1>
+    <p>Sadece senin için hazırlanmış özel bir mesaj var. Hazırsan aç!</p>
+    <button class="btn" onclick="showMessage()">🎁 Sürprizi Aç 🎁</button>
 
-    <script>
-        function showMessage() {
-            alert("Seni sonsuz bir aşkla seviyorum! 💖");
+    <div id="hiddenMessage" class="hidden-message">
+        💖 <span id="randomMessage"></span> 💖
+        <button class="btn" onclick="showMessage()">Yeni Mesaj</button>
+    </div>
+</div>
+
+<audio id="sound" src="pop-sound.mp3"></audio>
+<audio id="background-music" src="romantic-music.mp3" loop></audio>
+
+<script>
+    const messages = [
+        "Seni çok seviyorum!", 
+        "Kalbim hep seninle olacak...", 
+        "Her zaman yanındayım!", 
+        "Sen benim her şeyimsin!", 
+        "Birlikte sonsuza kadar... 💖"
+    ];
+
+    function showMessage() {
+        const message = document.getElementById('hiddenMessage');
+        document.getElementById('randomMessage').innerText = messages[Math.floor(Math.random() * messages.length)];
+        message.classList.add('visible');
+        document.getElementById('sound').play();
+        document.getElementById('background-music').play();
+
+        for (let i = 0; i < 30; i++) {
+            createHeart();
+            createConfetti();
         }
-    </script>
+    }
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-animation');
+        heart.style.left = `${Math.random() * 100}vw`;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+    }
+
+    function createConfetti() {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = `${Math.random() * 100}vw`;
+        confetti.style.setProperty('--hue', Math.random() * 360);
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2000);
+    }
+</script>
 </body>
 </html>
