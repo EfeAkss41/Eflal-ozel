@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Romantik Galeri</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantik Galeri 💖</title>
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
-            background-color: #ffe6f2;
+            background-image: url('./img/gallery-arka.jpg'); /* Arka plan fotoğrafını buraya yükle */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: #ff4d6d;
+            overflow: hidden;
         }
 
         h1 {
@@ -71,6 +75,13 @@
             background-color: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
+            transition: opacity 0.5s;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal img {
@@ -79,90 +90,55 @@
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             border: 3px solid #ff4d6d;
+            transition: transform 0.4s;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
+        .modal img:hover {
+            transform: scale(1.05);
         }
 
-        .message {
+        .surprise-btn {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 20px;
+            right: 20px;
             background-color: #ff4d6d;
-            color: #fff;
-            padding: 20px;
-            border-radius: 15px;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            font-size: 24px;
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 2000;
-            text-align: center;
         }
+
+        .surprise-btn:hover {
+            background-color: #ff1e4d;
+        }
+
     </style>
 </head>
 <body>
 
 <h1>💖 Romantik Galeri 💖</h1>
 
-<div class="gallery-container">
-    <script>
-        const galleryContainer = document.querySelector('.gallery-container');
-        const photos = [
-            { src: './img/photo1.jpg', message: 'Sonsuza kadar seninleyim.' },
-            { src: './img/photo2.jpg', message: 'Kalbim her zaman senin için atıyor.' },
-            { src: './img/photo3.jpg', message: 'Aşkın dokunuşuyla her şey daha güzel.' },
-            { src: './img/photo4.jpg', message: 'Bir öpücük, bin kelimeye bedel.' },
-            { src: './img/photo5.jpg', message: 'Kalbimde sadece sen varsın.' },
-            { src: './img/photo6.jpg', message: 'Ellerimizi hiç bırakmayalım.' },
-            { src: './img/photo7.jpg', message: 'Bir gül kadar güzel ve narinsin.' },
-            { src: './img/photo8.jpg', message: 'Birlikte her an bir mucize.' },
-            { src: './img/photo9.jpg', message: 'Gün batımında bile kalbim seninle.' },
-            { src: './img/photo10.jpg', message: 'Sarılmak, her şeyi unutturur.' }
-        ];
-
-        photos.forEach(photo => {
-            const item = `<div class="gallery-item" onclick="openModal('${photo.src}', '${photo.message}')">
-                            <img src="${photo.src}" alt="Romantic">
-                          </div>`;
-            galleryContainer.innerHTML += item;
-        });
-    </script>
-</div>
-
-<div class="modal" id="modal" onclick="closeModal()">
-    <span class="close-btn">&times;</span>
-    <img id="modal-img" src="" alt="Image" />
-</div>
-
-<div id="message" class="message"></div>
+<div class="gallery-container"></div>
+<button class="surprise-btn" onclick="showSurprise()">🎁 Sürpriz!</button>
 
 <script>
-    function openModal(src, message) {
-        document.getElementById('modal-img').src = src;
-        document.getElementById('modal').style.display = 'flex';
-        showMessage(message);
-    }
+    const photos = Array.from({ length: 10 }, (_, i) => `./img/photo${i + 1}.jpg`);
 
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-    }
+    const galleryContainer = document.querySelector('.gallery-container');
 
-    function showMessage(message) {
-        const msg = document.getElementById('message');
-        msg.innerText = message;
-        msg.style.opacity = '1';
+    photos.forEach(photo => {
+        const item = `<div class="gallery-item" onclick="openModal('${photo}')">
+                        <img src="${photo}" alt="Romantic">
+                      </div>`;
+        galleryContainer.innerHTML += item;
+    });
 
-        setTimeout(() => {
-            msg.style.opacity = '0';
-        }, 3000);
+    function showSurprise() {
+        alert("Sürpriz! Seni çok seviyorum! 💖");
     }
 </script>
 
